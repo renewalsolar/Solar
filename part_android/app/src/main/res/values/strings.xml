@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">solar</string>
+    <string name="realtime_used">실시간 전력사용량</string>
+    <string name="eletronic_used">전력사용량</string>
+    <string name="eletronic_generation">발전량</string>
+    <string name="kilowatt">Kw</string>
+
+</resources>
