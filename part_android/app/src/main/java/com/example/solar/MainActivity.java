@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void displayMenu() {
+
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
         tabLayout.addTab(tabLayout.newTab().setText("계산도우미"));
         tabLayout.getTabAt(0).setIcon(R.drawable.icon_calc);
         tabLayout.addTab(tabLayout.newTab().setText("친환경도우미"));

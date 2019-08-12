@@ -19,3 +19,5 @@
         android:layout_weight="1">
     </com.example.solar.tabPager.CustomViewPager>
 </LinearLayout>
+
+    <!--app:tabTextAppearance="@style/tab_text"-->
