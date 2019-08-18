@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:layout_marginTop="5sp"
-                    android:text="지역별 정부지원정보"
+                    android:text="정부지원정보"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -116,14 +116,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:id="@+id/btn_jiwon"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/search"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
                         android:gravity="center"
-                        android:text="기능 추가 예정입니다."
+                        android:text="확인해보기"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -154,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10sp"
                     android:layout_marginTop="5sp"
-                    android:text="태양광 발전 업체 추천"
+                    android:text="태양광 패널 제품 추천"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -172,15 +181,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="200dp"
+                        android:id="@+id/btn_upchae"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/search"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="7"
                         android:gravity="center"
-                        android:text="기능추가예정"
+                        android:text="확인해보기"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textStyle="bold"

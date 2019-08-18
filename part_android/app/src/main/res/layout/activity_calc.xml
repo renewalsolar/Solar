@@ -278,12 +278,12 @@
                     android:orientation="horizontal">
 
 
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/piechart3"
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/linechart"
                         android:layout_width="match_parent"
                         android:layout_height="200dp">
 
-                    </com.github.mikephil.charting.charts.PieChart>
+                    </com.github.mikephil.charting.charts.LineChart>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
