@@ -1,4 +1,4 @@
-package com.example.solarmap;
+package com.example.solar.map;
 
 import android.annotation.TargetApi;
 import android.os.AsyncTask;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.solar.R;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -28,7 +29,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity {
     private MapView mapView;
 
     double[] lat = {0, 40, 50, 60};
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Mapbox.getInstance(this, "pk.eyJ1IjoiYW55dGltZTk2IiwiYSI6ImNqdzhoN2FmdTF2NXk0YXA5NWNrZzhlZG0ifQ.smgy-n2TfOl4cOo8PcTGdA");
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map);
 
         txt = (TextView)findViewById(R.id.text2);
         mapView = findViewById(R.id.mapView);
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
                         new JSONParse().execute(marker.getPosition().getLatitude(),marker.getPosition().getLongitude());
-                        txt.setText("최고="+String.format("%.01f", max1)+ "도, "+"최저="+String.format("%.01f", min1)+"도");
+                        txt.setText("최고="+ String.format("%.01f", max1)+ "도, "+"최저="+ String.format("%.01f", min1)+"도");
                         return false;
                     }
                 });
