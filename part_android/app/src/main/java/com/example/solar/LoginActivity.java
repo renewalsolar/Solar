@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.solar.Models.UserInfo;
 import com.example.solar.network.Config;
 import com.example.solar.network.NetworkUtility;
 
@@ -27,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnNlogIn;
 
     private String serverMsg;
-    private String userId;
     private boolean serverAuth;
+
     private boolean hasPV;
 
     private NetworkUtility networkUtility;
@@ -36,12 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login);
-        networkUtility = new NetworkUtility(getApplicationContext());
-
-        //int resnum = getResources().getIdentifier("bibimbab","drawable","com.example.pyeonsangjin.ssmproject");
 
         etId = (EditText) findViewById(R.id.etId);
         etPw = (EditText) findViewById(R.id.etPassword);
@@ -49,9 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn = (Button) findViewById(R.id.btnSignin);
         btnNlogIn = (Button) findViewById(R.id.nologin);
 
-        serverAuth= false;
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        networkUtility = new NetworkUtility(getApplicationContext());
 
+        serverAuth = false;
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -66,6 +63,16 @@ public class LoginActivity extends AppCompatActivity {
                 requestPostLogin();
             }
         });
+
+        btnNlogIn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+
+                intent.putExtra("USER_INFO", new UserInfo("NONE", "NONE", false));
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -76,20 +83,19 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("RESULT", resultCode + "");
         Log.d("RESULT", data + "");
 
-        if(requestCode == 1000 && resultCode == RESULT_OK) {
+        if (requestCode == 1000 && resultCode == RESULT_OK) {
             etId.setText(data.getStringExtra("Id"));
         }
     }
 
-    public void requestPostLogin()
-    {
+    public void requestPostLogin() {
         try {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("id", etId.getText().toString());
             jsonObject.put("password", etPw.getText().toString());
 
             networkUtility.requestServer(Request.Method.POST,
-                    Config.MAIN_URL+ Config.POST_LOGIN,
+                    Config.MAIN_URL + Config.POST_LOGIN,
                     jsonObject,
                     networkSuccessListener(),
                     networkErrorListener());
@@ -107,21 +113,17 @@ public class LoginActivity extends AppCompatActivity {
                     serverMsg = response.getString("message");
                     serverAuth = response.getBoolean("success");
                     hasPV = response.getBoolean("hasPV");
-                } catch (JSONException e){
+
+                } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), serverMsg, Toast.LENGTH_LONG).show();
-                    //throw new IllegalArgumentException("Failed to parse the String: " + serverMsg);
-                }
-                finally {
+                } finally {
                     Toast.makeText(getApplicationContext(), serverMsg, Toast.LENGTH_LONG).show();
                 }
-
-                if(serverAuth) {
+                if (serverAuth) {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    userId = etId.getText().toString();
-                    intent.putExtra("id", userId);
-                    intent.putExtra("auth",serverAuth);
-                    startActivityForResult(intent, 1001);
+                    intent.putExtra("USER_INFO", new UserInfo(etId.getText().toString(), etPw.getText().toString(), hasPV));
+                    startActivity(intent);
                     finish();
                 }
             }

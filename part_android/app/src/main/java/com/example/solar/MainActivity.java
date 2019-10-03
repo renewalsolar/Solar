@@ -2,19 +2,19 @@ package com.example.solar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
 
-import com.example.solar.fragment.CalcHelper;
-import com.example.solar.fragment.EcoHelper;
+import com.example.solar.Models.UserInfo;
+import com.example.solar.fragment.DontHasPV;
+import com.example.solar.fragment.HasPV;
 import com.example.solar.tabPager.CustomViewPager;
 import com.example.solar.tabPager.PagerAdapter;
 import com.google.android.material.tabs.TabLayout;
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
+    private UserInfo user;
 
     private CustomViewPager viewPager;
     private TabLayout tabLayout;
@@ -24,8 +24,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        user = (UserInfo)intent.getSerializableExtra("USER_INFO");
+
         setupViewPager();
-        displayMenu();
+        //displayMenu();
     }
 
     private void setupViewPager() {
@@ -34,8 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(new CalcHelper());
-        adapter.addFragment(new EcoHelper());
+        if(user.isHasPV()){
+            adapter.addFragment(new HasPV());
+        }
+        else{
+            adapter.addFragment(new DontHasPV());
+        }
 
         viewPager.setAdapter(adapter);
         //viewPager.setOffscreenPageLimit(10);
