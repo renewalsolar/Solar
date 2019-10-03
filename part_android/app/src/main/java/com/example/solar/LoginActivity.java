@@ -109,7 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                     hasPV = response.getBoolean("hasPV");
                 } catch (JSONException e){
                     e.printStackTrace();
-                    throw new IllegalArgumentException("Failed to parse the String: " + serverMsg);
+                    Toast.makeText(getApplicationContext(), serverMsg, Toast.LENGTH_LONG).show();
+                    //throw new IllegalArgumentException("Failed to parse the String: " + serverMsg);
                 }
                 finally {
                     Toast.makeText(getApplicationContext(), serverMsg, Toast.LENGTH_LONG).show();

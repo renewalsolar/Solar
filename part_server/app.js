@@ -13,7 +13,7 @@ var port = process.env.PORT || 3001; // set PORT
 mongoose.Promise = global.Promise;
 mongoose.set('useUnifiedTopology', true);
 
-const mongoDB = 'mongodb://127.0.0.1:27017/test' // 호스트:포트/DB명
+const mongoDB = 'mongodb://127.0.0.1:27017/solar' // 호스트:포트/DB명
 const promise = mongoose.connect(mongoDB, {
   useNewUrlParser: true 
  // useMongoClient: true 
