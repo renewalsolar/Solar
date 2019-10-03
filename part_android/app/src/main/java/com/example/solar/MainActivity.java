@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.example.solar.Models.UserInfo;
 import com.example.solar.fragment.DontHasPV;
+import com.example.solar.fragment.EcoHelper;
 import com.example.solar.fragment.HasPV;
 import com.example.solar.tabPager.CustomViewPager;
 import com.example.solar.tabPager.PagerAdapter;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.addFragment(new HasPV());
         }
         else{
-            adapter.addFragment(new DontHasPV());
+            adapter.addFragment(new EcoHelper());
         }
 
         viewPager.setAdapter(adapter);
