@@ -41,6 +41,7 @@
         <activity android:name=".UnityPlayerActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".map.MapActivity"/>
     </application>
 
 </manifest>

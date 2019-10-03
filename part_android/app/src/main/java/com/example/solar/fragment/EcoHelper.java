@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.solar.R;
 import com.example.solar.UnityPlayerActivity;
+import com.example.solar.map.MapActivity;
 
 public class EcoHelper extends Fragment {
 
@@ -25,6 +26,7 @@ public class EcoHelper extends Fragment {
     Button btn_upchae;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_green, container, false);
@@ -32,6 +34,7 @@ public class EcoHelper extends Fragment {
         btn_ar = (Button)v.findViewById(R.id.arbutton);
         btn_jiwon = (Button)v.findViewById(R.id.btn_jiwon);
         btn_upchae = (Button)v.findViewById(R.id.btn_upchae);
+
 
         btn_ar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +62,8 @@ public class EcoHelper extends Fragment {
                 startActivity(intent);
             }
         });
+
+
 
         // Inflate the layout for this fragment
         return v;
