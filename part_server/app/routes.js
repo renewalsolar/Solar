@@ -1,5 +1,5 @@
-var loginRouter = require('./routes/login');
+var PersonRouter = require('./routes/Person');
 
 module.exports = function(app){
-    app.use('/api/login', loginRouter());
+    app.use('/api/person', PersonRouter());
 }
