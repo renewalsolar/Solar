@@ -5,10 +5,11 @@ var PannelSchema = new Schema({
     auth_id: String, //주인
 
     maxOutput:String,
-    dayOutput:[{
+    dayOutput:[ {
         date: String,
         output: String
-    }],
+    },
+],
     
     lanx:String,
     lany:String
