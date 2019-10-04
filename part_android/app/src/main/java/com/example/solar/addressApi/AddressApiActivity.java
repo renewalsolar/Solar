@@ -1,5 +1,6 @@
 package com.example.solar.addressApi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.webkit.JavascriptInterface;
@@ -14,15 +15,12 @@ import com.example.solar.R;
 public class AddressApiActivity extends AppCompatActivity {
 
     private WebView webView;
-    private TextView result;
     private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_api);
-
-        result = (TextView) findViewById(R.id.result);
 
         // WebView 초기화
         init_webView();
@@ -52,11 +50,17 @@ public class AddressApiActivity extends AppCompatActivity {
         @JavascriptInterface
         public void setAddress(final String arg1, final String arg2, final String arg3) {
             handler.post(new Runnable() {
-                @Override   
+                @Override
                 public void run() {
-                    result.setText(String.format("(%s) %s %s", arg1, arg2, arg3));
-                    // WebView를 초기화 하지않으면 재사용할 수 없음
+
+                    String address = arg2 + " " + arg3;
+                    Intent result = new Intent();
+                    result.putExtra("address", address.toString());
+
+                    // 자신을 호출한 Acstivity로 데이터를 보낸다.
+                    setResult(RESULT_OK, result);
                     init_webView();
+                    finish();
                 }
             });
         }

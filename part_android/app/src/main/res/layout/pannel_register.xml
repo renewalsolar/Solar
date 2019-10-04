@@ -20,6 +20,7 @@
         android:ems="10"
         android:hint="User Name" />
 
+
     <EditText
         android:id="@+id/et_pannel_maxoutput"
         android:layout_width="match_parent"
@@ -27,19 +28,29 @@
         android:ems="10"
         android:hint="max Output" />
 
-    <EditText
-        android:id="@+id/et_pannel_lanx"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Lan X" />
+        android:orientation="horizontal">
 
     <EditText
-        android:id="@+id/et_pannel_lany"
-        android:layout_width="match_parent"
+        android:id="@+id/et_pannel_address"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Lan Y" />
+        android:hint="주소"
+        android:focusableInTouchMode="false"/>
+
+    <Button
+        android:id="@+id/btn_search_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="검색" />
+
+        ></LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="horizontal"

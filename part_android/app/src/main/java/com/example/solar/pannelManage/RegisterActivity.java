@@ -1,5 +1,6 @@
 package com.example.solar.pannelManage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.solar.R;
+import com.example.solar.addressApi.AddressApiActivity;
+import com.example.solar.map.MapActivity;
 import com.example.solar.network.Config;
 import com.example.solar.network.NetworkUtility;
 
@@ -21,9 +24,9 @@ import org.json.JSONObject;
 public class RegisterActivity extends AppCompatActivity {
     private EditText etAuth;
     private EditText etMaxoutput;
-    private EditText etlanX;
-    private EditText etlanY;
+    private EditText etAddress;
 
+    private Button searchBtn;
     private Button btnDone;
     private Button btnCancel;
 
@@ -38,13 +41,21 @@ public class RegisterActivity extends AppCompatActivity {
 
         etAuth = (EditText) findViewById(R.id.et_pannel_auth);
         etMaxoutput = (EditText) findViewById(R.id.et_pannel_maxoutput);
-        etlanX = (EditText) findViewById(R.id.et_pannel_lanx);
-        etlanY = (EditText) findViewById(R.id.et_pannel_lany);
+        etAddress = (EditText) findViewById(R.id.et_pannel_address);
 
+        searchBtn = (Button) findViewById(R.id.btn_search_address);
         btnDone = (Button) findViewById(R.id.btn_pannel_done);
         btnCancel = (Button) findViewById(R.id.btn_pannel_cancel);
 
         networkUtility = new NetworkUtility(getApplicationContext());
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddressApiActivity.class );
+                startActivityForResult(intent, 1002);
+            }
+        });
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +78,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1002 && resultCode == RESULT_OK) {
+            etAddress.setText(data.getStringExtra("address"));
+        }
+    }
+
 
     public boolean checkSignUp() {
         //유저이름 입력 확인
@@ -84,16 +104,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // 아이디 입력 확인
-        else if (etlanX.getText().toString().length() == 0) {
-            Toast.makeText(RegisterActivity.this, "X좌표를 입력하세요!", Toast.LENGTH_SHORT).show();
-            etlanX.requestFocus();
-            return false;
-        }
-
-        // 비밀번호 입력 확인
-        else if (etlanY.getText().toString().length() == 0) {
-            Toast.makeText(RegisterActivity.this, "Y좌표를 입력하세요!", Toast.LENGTH_SHORT).show();
-            etlanY.requestFocus();
+        else if (etAddress.getText().toString().length() == 0) {
+            Toast.makeText(RegisterActivity.this, "주소를 입력하세요!", Toast.LENGTH_SHORT).show();
+            etAddress.requestFocus();
             return false;
         }
 
@@ -105,8 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("auth_id", etAuth.getText().toString());
             jsonObject.put("maxOutput", etMaxoutput.getText().toString());
-            jsonObject.put("lanx", etlanX.getText().toString());
-            jsonObject.put("lany", etlanY.getText().toString());
+            jsonObject.put("address", etAddress.getText().toString());
 
 
             networkUtility.requestServer(Request.Method.POST,
