@@ -14,13 +14,13 @@
         android:layout_height="1000dp"
         mapbox:mapbox_cameraTargetLat="36.85"
         mapbox:mapbox_cameraTargetLng="127.75"
-        mapbox:mapbox_cameraZoom="6"/>
+        mapbox:mapbox_cameraZoom="10"/>
 
     <TextView
-        android:id="@+id/text2"
+        android:id="@+id/txt"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="center|center_vertical"
+        android:layout_height="200dp"
+        android:gravity="top|center_vertical"
         android:text="The Awesome Sliding Up Panel"
         android:textSize="16sp" />
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

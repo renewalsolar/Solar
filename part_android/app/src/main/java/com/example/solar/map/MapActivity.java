@@ -2,6 +2,9 @@ package com.example.solar.map;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,12 +52,8 @@ public class MapActivity extends AppCompatActivity {
     private List<String> addresses;
 
 
-    double[] lat = {0, 40, 50, 60};
-    double[] lon = {40, 120, 130, 110};
-    int i = 0;
-
-    double max1;
-    double min1;
+    double latitude = 0;
+    double longitude = 0;
 
     TextView txt;
 
@@ -68,12 +67,33 @@ public class MapActivity extends AppCompatActivity {
         Mapbox.getInstance(this, "pk.eyJ1IjoiYW55dGltZTk2IiwiYSI6ImNqdzhoN2FmdTF2NXk0YXA5NWNrZzhlZG0ifQ.smgy-n2TfOl4cOo8PcTGdA");
         setContentView(R.layout.activity_map);
 
-        txt = (TextView)findViewById(R.id.text2);
+        txt = (TextView)findViewById(R.id.txt);
 
         setupMapView(savedInstanceState);
         new JSONParse().execute();
+    }
 
+    public void convertToXY(String address)
+    {
+        final Geocoder geocoder = new Geocoder(this);
 
+        List<Address> list = null;
+
+        try {
+            list = geocoder.getFromLocationName
+                    (address, // 지역 이름
+                            10); // 읽을 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("test","입출력 오류 - 서버에서 주소변환시 에러발생");
+        }
+
+        if (list != null) {
+                // 해당되는 주소로 인텐트 날리기
+                Address addr = list.get(0);
+                latitude = addr.getLatitude();
+                longitude = addr.getLongitude();
+        }
     }
 
     private void setupMapView(Bundle savedInstanceState) {
@@ -86,14 +106,16 @@ public class MapActivity extends AppCompatActivity {
                 mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-                        for(int i = 0; i<lat.length; i++)
+                        for(int i = 0; i<addresses.size(); i++)
                         {
+                            convertToXY(addresses.get(i));
                             mapboxMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(lat[i],lon[i])));
+                                    .position(new LatLng(latitude,longitude)).title(addresses.get(i)));
                         }
                         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                             @Override
                             public boolean onMapClick(@NonNull LatLng point) {
+
                                 return false;
                             }
                         });
@@ -104,7 +126,7 @@ public class MapActivity extends AppCompatActivity {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
                         //new JSONParse().execute(marker.getPosition().getLatitude(),marker.getPosition().getLongitude());
-                        txt.setText("최고="+ String.format("%.01f", max1)+ "도, "+"최저="+ String.format("%.01f", min1)+"도");
+                        txt.setText(marker.getTitle());
                         return false;
                     }
                 });
@@ -155,17 +177,6 @@ public class MapActivity extends AppCompatActivity {
         mapView.onDestroy();
     }
 
-    private class MarkerViewManager {
-        public MarkerViewManager(MapView mapView, MapboxMap mapboxMap) {
-        }
-
-        public void addMarker(MarkerView markerView,  MapboxMap mapboxMap) {
-        }
-
-        public void onDestroy() {
-        }
-    }
-
     private class JSONParse extends AsyncTask<Double, Double, JSONObject> {
         @Override
         protected void onPreExecute() {
@@ -181,16 +192,7 @@ public class MapActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            try {
-                JSONObject mainArray = (JSONObject) json.get("main");
-                double max = Double.parseDouble(mainArray.get("temp_max").toString());
-                double min = Double.parseDouble(mainArray.get("temp_min").toString());
 
-                max1 = max;
-                min1 = min;
-                i++;
-            } catch (Exception e) {
-            }
         }
     }
 
