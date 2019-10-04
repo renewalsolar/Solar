@@ -9,48 +9,48 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".RegisterActivity"
+    tools:context=".personManage.RegisterActivity"
     android:weightSum="1">
 
     <EditText
+        android:id="@+id/et_person_register_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:hint="User Name"
-        android:id="@+id/etUserName" />
+        android:hint="User Name" />
 
     <EditText
+        android:id="@+id/et_person_register_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:hint="Address"
-        android:id="@+id/etAddress" />
+        android:hint="Address" />
 
     <EditText
+        android:id="@+id/et_person_register_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:hint="ID"
-        android:id="@+id/etId" />
+        android:hint="ID" />
 
     <EditText
+        android:id="@+id/et_person_register_pw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:hint="Password"
-        android:id="@+id/etPassword" />
+        android:hint="Password" />
 
     <EditText
+        android:id="@+id/et_person_register_pwconfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:hint="Password Confirm"
-        android:id="@+id/etPasswordConfirm" />
+        android:hint="Password Confirm" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnDone"
+            android:id="@+id/btn_person_register_done"
             android:text="Done"
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
             />
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btn_person_register_cancel"
             android:text="Cancel"
             android:layout_weight="1"
             android:layout_width="wrap_content"

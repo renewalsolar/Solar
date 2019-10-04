@@ -1,4 +1,4 @@
-package com.example.solar;
+package com.example.solar.personManage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.solar.MainActivity;
 import com.example.solar.Models.UserInfo;
+import com.example.solar.R;
 import com.example.solar.network.Config;
 import com.example.solar.network.NetworkUtility;
 
@@ -25,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPw;
     private Button btnSignUp;
     private Button btnSignIn;
-    private Button btnNlogIn;
+    private Button btnNonmember;
 
     private String serverMsg;
     private boolean serverAuth;
@@ -37,13 +39,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.person_login);
 
-        etId = (EditText) findViewById(R.id.etId);
-        etPw = (EditText) findViewById(R.id.etPassword);
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
-        btnSignIn = (Button) findViewById(R.id.btnSignin);
-        btnNlogIn = (Button) findViewById(R.id.nologin);
+        etId = (EditText) findViewById(R.id.et_person_login_id);
+        etPw = (EditText) findViewById(R.id.et_person_login_pw);
+        btnSignIn = (Button) findViewById(R.id.btn_person_signin);
+        btnSignUp = (Button) findViewById(R.id.btn_person_signup);
+        btnNonmember = (Button) findViewById(R.id.btn_person_nonmember);
 
         networkUtility = new NetworkUtility(getApplicationContext());
 
@@ -64,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnNlogIn.setOnClickListener(new View.OnClickListener() {
+        btnNonmember.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 

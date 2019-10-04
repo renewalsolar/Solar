@@ -1,4 +1,4 @@
-package com.example.solar;
+package com.example.solar.personManage;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.solar.R;
 import com.example.solar.network.Config;
 import com.example.solar.network.NetworkUtility;
 
@@ -37,19 +38,18 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+        setContentView(R.layout.person_register);
 
+        etUserName = (EditText) findViewById(R.id.et_person_register_name);
+        etAddress = (EditText) findViewById(R.id.et_person_register_address);
+        etId = (EditText) findViewById(R.id.et_person_register_id);
+        etPassword = (EditText) findViewById(R.id.et_person_register_pw);
+        etPasswordConfirm = (EditText) findViewById(R.id.et_person_register_pwconfirm);
 
-        etUserName = (EditText) findViewById(R.id.etUserName);
-        etAddress = (EditText) findViewById(R.id.etAddress);
-        etId = (EditText) findViewById(R.id.etId);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        etPasswordConfirm = (EditText) findViewById(R.id.etPasswordConfirm);
-        btnDone = (Button) findViewById(R.id.btnDone);
-        btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnDone = (Button) findViewById(R.id.btn_person_register_done);
+        btnCancel = (Button) findViewById(R.id.btn_person_register_cancel);
 
         networkUtility = new NetworkUtility(getApplicationContext());
-
 
         // 비밀번호 일치 검사
         etPasswordConfirm.addTextChangedListener(new TextWatcher() {
@@ -203,5 +203,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
     }
-
 }
