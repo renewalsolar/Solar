@@ -31,21 +31,32 @@ module.exports = {
 
 
     UpdatePannel: function (req, res, next) {
-
         var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
 
-        Pannel.find({ "dayOutput": { "$elemMatch": { "date": date } } }).exec(function (error, p) {
-            if (p == null) {
+        Pannel.find({"_id" : req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } }).exec(function (error, p) {
+            if (p.length==0) {
+                //dont find panel
                 var obj = new Object();
-
                 obj.date = new Date().toISOString().substr(0, 10).replace('T', ' ');
                 obj.output = "0";
 
-                Pannel.update({"_id" : req.body.params.pannel_id },{'$push':{"dayOutput" : obj}});
-                res.send({ success: true });
+                Pannel.update({"_id" : req.params.pannel_id },{$push:{ dayOutput : obj}},function(error,data){
+                    if(error){
+                      console.log(error);
+                    }else{
+                      console.log(data);
+                }});
+                res.send({ success: success });
             }
             else {
-                Pannel.update({ "dayOutput": { "$elemMatch": { "date": date } } },{$set:{"dayOutput.$.output":req.body.output}});
+                //find panel
+                Pannel.updateOne({"_id" : req.params.pannel_id , "dayOutput": { "$elemMatch": { "date": date } } },
+                {$set:{"dayOutput.$.output":req.body.output}},function(error,data){
+                    if(error){
+                      console.log(error);
+                    }else{
+                      console.log(data);
+                }});
                 res.send({ success: true });
             }
         });
