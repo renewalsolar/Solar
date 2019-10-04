@@ -10,9 +10,7 @@ var PannelSchema = new Schema({
         output: String
     },
 ],
-    
-    lanx:String,
-    lany:String
+    address: String
 });
 
 module.exports = mongoose.model('pannel', PannelSchema);

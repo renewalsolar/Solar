@@ -15,8 +15,7 @@ module.exports = {
             auth_id: req.body.auth_id,
             maxOutput: req.body.maxOutput,
             dayOutput: dayOutput_Array,
-            lanx: req.body.lanx,
-            lany: req.body.lany
+            address: req.body.address
         });
 
         newPannel.save(function (error, data) {

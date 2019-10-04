@@ -23,6 +23,10 @@ const promise = mongoose.connect(mongoDB, {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+var phpnode = require('php-node')({bin:"C:\\xampp\\php\\php.exe"});
+app.engine('php', phpnode);
+app.set('view engine', 'php');
+
 app.use(cors());
 app.use(logger('tiny'));
 app.use(bodyParser.json());
