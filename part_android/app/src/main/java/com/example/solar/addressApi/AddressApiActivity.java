@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solar.R;
+import com.example.solar.network.Config;
 
 public class AddressApiActivity extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class AddressApiActivity extends AppCompatActivity {
         webView.setWebChromeClient(new WebChromeClient());
 
         // webview url load
-        webView.loadUrl("http://192.168.210.28/api.php");
+        webView.loadUrl(Config.MAIN_URL+Config.GET_MAP_PHP);
     }
 
     private class AndroidBridge {

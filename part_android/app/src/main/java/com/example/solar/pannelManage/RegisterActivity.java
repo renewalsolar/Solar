@@ -14,7 +14,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.solar.R;
 import com.example.solar.addressApi.AddressApiActivity;
-import com.example.solar.map.MapActivity;
 import com.example.solar.network.Config;
 import com.example.solar.network.NetworkUtility;
 
