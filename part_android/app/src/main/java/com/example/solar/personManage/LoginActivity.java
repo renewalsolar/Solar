@@ -80,10 +80,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // setResult를 통해 받아온 요청번호, 상태, 데이터
-        Log.d("RESULT", requestCode + "");
-        Log.d("RESULT", resultCode + "");
-        Log.d("RESULT", data + "");
 
         if (requestCode == 1000 && resultCode == RESULT_OK) {
             etId.setText(data.getStringExtra("Id"));
