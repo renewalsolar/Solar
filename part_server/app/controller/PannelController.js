@@ -32,6 +32,8 @@ module.exports = {
     UpdatePannel: function (req, res, next) {
         var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
 
+        console.log(date);
+
         Pannel.find({"_id" : req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } }).exec(function (error, p) {
             if (p.length==0) {
                 //dont find panel
@@ -45,7 +47,7 @@ module.exports = {
                     }else{
                       console.log(data);
                 }});
-                res.send({ success: success });
+                res.send({ success: true });
             }
             else {
                 //find panel
@@ -63,7 +65,7 @@ module.exports = {
     },
 
     infoPannel: function (req, res, next) {
-        Pannel.find({ auth_id: req.params.auth_id }).sort({}).exec(function (error, p) {
+        Pannel.find({ auth_id: req.params.auth_id }).exec(function (error, p) {
             if (error) {
                 console.log(error);
             }
@@ -73,8 +75,11 @@ module.exports = {
         })
     },
 
+    //오늘 발전량 [{"dayOutput":[{"output":"3333"}],"address":"서울 강남구 압구정로 102 형지제2빌딩"},{"dayOutput":[{"output":"0"}],"address":"서울 서대문구 홍제동 285-14 "}]
     allInfoPannel: function (req, res, next) {
-        Pannel.find({}).sort({}).exec(function (error, p) {
+
+        var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
+        Pannel.find({dayOutput: { "$elemMatch": { date: date }}},{_id:0,address:1, dayOutput : {$slice :-1}, 'dayOutput.output': 1}).exec(function (error, p) {
             if (error) {
                 console.log(error);
             }
