@@ -71,9 +71,18 @@ module.exports = {
                 res.send(p);
             }
         })
+    },
 
+    allInfoPannel: function (req, res, next) {
+        Pannel.find({}).sort({}).exec(function (error, p) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                res.send(p);
+            }
+        })
     }
-
 
 
 }

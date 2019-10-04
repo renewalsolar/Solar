@@ -46,7 +46,7 @@ public class MapActivity extends AppCompatActivity {
     private MapView mapView;
 
     private NetworkUtility networkUtility;
-    private List<String> addresses = new ArrayList<>();
+    private List<String> addresses;
 
 
     double[] lat = {0, 40, 50, 60};
@@ -62,7 +62,8 @@ public class MapActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        networkUtility = new NetworkUtility(getApplicationContext());
+        addresses = new ArrayList<>();
 
         Mapbox.getInstance(this, "pk.eyJ1IjoiYW55dGltZTk2IiwiYSI6ImNqdzhoN2FmdTF2NXk0YXA5NWNrZzhlZG0ifQ.smgy-n2TfOl4cOo8PcTGdA");
         setContentView(R.layout.activity_map);
@@ -70,6 +71,7 @@ public class MapActivity extends AppCompatActivity {
         txt = (TextView)findViewById(R.id.text2);
 
         setupMapView(savedInstanceState);
+        new JSONParse().execute();
 
 
     }
@@ -101,7 +103,7 @@ public class MapActivity extends AppCompatActivity {
                 mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
-                        new JSONParse().execute(marker.getPosition().getLatitude(),marker.getPosition().getLongitude());
+                        //new JSONParse().execute(marker.getPosition().getLatitude(),marker.getPosition().getLongitude());
                         txt.setText("최고="+ String.format("%.01f", max1)+ "도, "+"최저="+ String.format("%.01f", min1)+"도");
                         return false;
                     }
@@ -168,6 +170,7 @@ public class MapActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            requestgetArray();
         }
 
         @Override
@@ -193,22 +196,20 @@ public class MapActivity extends AppCompatActivity {
 
     public void requestgetArray() {
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id", "q");
-
             networkUtility.requestServer(
                     Config.MAIN_URL + Config.GET_PANNEL_INFO,
                     networkSuccessListener(),
                     networkErrorListener());
 
-        } catch (JSONException e) {
-            throw new IllegalStateException("Failed to convert the object to JSON");
+        }catch (Exception e){
+            Log.e("ERRRER",e.toString());
         }
     }
 
     private Response.Listener<JSONArray> networkSuccessListener() {
         return new Response.Listener<JSONArray>() {
             public void onResponse(JSONArray response) {
+                Log.e("ERRRRRRRRR",response.toString() + "HERE");
                 getPannels(response);
             }
         };
@@ -224,8 +225,7 @@ public class MapActivity extends AppCompatActivity {
             }
         };
     }
-
-
+    
     private void getPannels(JSONArray response) {
         Log.e("ERRRRRRR", response.toString());
         try {

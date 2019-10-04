@@ -8,6 +8,7 @@ module.exports = function () {
     app.post('/update/:pannel_id',PannelController.UpdatePannel);
 
     app.get('/info/:auth_id',PannelController.infoPannel);
+    app.get('/info',PannelController.allInfoPannel);
 
     return app;
 }
