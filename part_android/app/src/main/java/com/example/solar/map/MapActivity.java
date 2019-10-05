@@ -2,6 +2,9 @@ package com.example.solar.map;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,12 +26,15 @@ import com.example.solar.network.NetworkUtility;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,14 +53,12 @@ public class MapActivity extends AppCompatActivity {
 
     private NetworkUtility networkUtility;
     private List<String> addresses;
+    private List<String> outputs;
+    private List<String> maxOutputs;
 
 
-    double[] lat = {0, 40, 50, 60};
-    double[] lon = {40, 120, 130, 110};
-    int i = 0;
-
-    double max1;
-    double min1;
+    double latitude = 0;
+    double longitude = 0;
 
     TextView txt;
 
@@ -64,21 +68,45 @@ public class MapActivity extends AppCompatActivity {
 
         networkUtility = new NetworkUtility(getApplicationContext());
         addresses = new ArrayList<>();
+        maxOutputs = new ArrayList<>();
+        outputs = new ArrayList<>();
 
         Mapbox.getInstance(this, "pk.eyJ1IjoiYW55dGltZTk2IiwiYSI6ImNqdzhoN2FmdTF2NXk0YXA5NWNrZzhlZG0ifQ.smgy-n2TfOl4cOo8PcTGdA");
         setContentView(R.layout.activity_map);
 
-        txt = (TextView)findViewById(R.id.text2);
+        txt = (TextView)findViewById(R.id.txt);
 
         setupMapView(savedInstanceState);
         new JSONParse().execute();
+    }
 
+    public void convertToXY(String address)
+    {
+        final Geocoder geocoder = new Geocoder(this);
 
+        List<Address> list = null;
+
+        try {
+            list = geocoder.getFromLocationName
+                    (address, // 지역 이름
+                            10); // 읽을 개수
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("test","입출력 오류 - 서버에서 주소변환시 에러발생");
+        }
+
+        if (list != null) {
+                // 해당되는 주소로 인텐트 날리기
+                Address addr = list.get(0);
+                latitude = addr.getLatitude();
+                longitude = addr.getLongitude();
+        }
     }
 
     private void setupMapView(Bundle savedInstanceState) {
         mapView = findViewById(R.id.mapView);
 
+       
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -86,17 +114,24 @@ public class MapActivity extends AppCompatActivity {
                 mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-                        for(int i = 0; i<lat.length; i++)
+                        for(int i = 0; i<addresses.size(); i++)
                         {
+                            convertToXY(addresses.get(i));
                             mapboxMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(lat[i],lon[i])));
+                                    .position(new LatLng(latitude,longitude))
+                                    .title("주소 : " + addresses.get(i) + "\n" +
+                                            "최대 출력 : "+maxOutputs.get(i)+ "\n" +
+                                            "오늘 실시간 발전량 : "+outputs.get(i)));
+
                         }
                         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                             @Override
                             public boolean onMapClick(@NonNull LatLng point) {
+
                                 return false;
                             }
                         });
+
                     }
                 });
 
@@ -104,12 +139,13 @@ public class MapActivity extends AppCompatActivity {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
                         //new JSONParse().execute(marker.getPosition().getLatitude(),marker.getPosition().getLongitude());
-                        txt.setText("최고="+ String.format("%.01f", max1)+ "도, "+"최저="+ String.format("%.01f", min1)+"도");
+                        txt.setText(marker.getTitle());
                         return false;
                     }
                 });
             }
         });
+
     }
 
 
@@ -155,17 +191,6 @@ public class MapActivity extends AppCompatActivity {
         mapView.onDestroy();
     }
 
-    private class MarkerViewManager {
-        public MarkerViewManager(MapView mapView, MapboxMap mapboxMap) {
-        }
-
-        public void addMarker(MarkerView markerView,  MapboxMap mapboxMap) {
-        }
-
-        public void onDestroy() {
-        }
-    }
-
     private class JSONParse extends AsyncTask<Double, Double, JSONObject> {
         @Override
         protected void onPreExecute() {
@@ -181,16 +206,7 @@ public class MapActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            try {
-                JSONObject mainArray = (JSONObject) json.get("main");
-                double max = Double.parseDouble(mainArray.get("temp_max").toString());
-                double min = Double.parseDouble(mainArray.get("temp_min").toString());
 
-                max1 = max;
-                min1 = min;
-                i++;
-            } catch (Exception e) {
-            }
         }
     }
 
@@ -230,9 +246,12 @@ public class MapActivity extends AppCompatActivity {
         Log.e("ERRRRRRR", response.toString());
         try {
             JSONObject jresponse;
+
             for (int i = 0; i < response.length(); i++) {
                 jresponse = response.getJSONObject(i);
                 addresses.add(jresponse.getString("address"));
+                maxOutputs.add(jresponse.getString("maxOutput"));
+                outputs.add(jresponse.getJSONArray("dayOutput").getJSONObject(0).getString("output"));
             }
 
         } catch (JSONException e) {
@@ -240,3 +259,5 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 }
+/*[{"dayOutput":[{"output":"3333"}],"address":"서울 강남구 압구정로 102 형지제2빌딩"}
+,{"dayOutput":[{"output":"0"}],"address":"서울 서대문구 홍제동 285-14 "}]*/
