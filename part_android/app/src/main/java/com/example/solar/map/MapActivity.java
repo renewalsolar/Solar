@@ -26,12 +26,15 @@ import com.example.solar.network.NetworkUtility;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerView;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +53,8 @@ public class MapActivity extends AppCompatActivity {
 
     private NetworkUtility networkUtility;
     private List<String> addresses;
+    private List<String> outputs;
+    private List<String> maxOutputs;
 
 
     double latitude = 0;
@@ -63,6 +68,8 @@ public class MapActivity extends AppCompatActivity {
 
         networkUtility = new NetworkUtility(getApplicationContext());
         addresses = new ArrayList<>();
+        maxOutputs = new ArrayList<>();
+        outputs = new ArrayList<>();
 
         Mapbox.getInstance(this, "pk.eyJ1IjoiYW55dGltZTk2IiwiYSI6ImNqdzhoN2FmdTF2NXk0YXA5NWNrZzhlZG0ifQ.smgy-n2TfOl4cOo8PcTGdA");
         setContentView(R.layout.activity_map);
@@ -99,6 +106,7 @@ public class MapActivity extends AppCompatActivity {
     private void setupMapView(Bundle savedInstanceState) {
         mapView = findViewById(R.id.mapView);
 
+       
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -110,7 +118,11 @@ public class MapActivity extends AppCompatActivity {
                         {
                             convertToXY(addresses.get(i));
                             mapboxMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(latitude,longitude)).title(addresses.get(i)));
+                                    .position(new LatLng(latitude,longitude))
+                                    .title("주소 : " + addresses.get(i) + "\n" +
+                                            "최대 출력 : "+maxOutputs.get(i)+ "\n" +
+                                            "오늘 실시간 발전량 : "+outputs.get(i)));
+
                         }
                         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                             @Override
@@ -119,6 +131,7 @@ public class MapActivity extends AppCompatActivity {
                                 return false;
                             }
                         });
+
                     }
                 });
 
@@ -132,6 +145,7 @@ public class MapActivity extends AppCompatActivity {
                 });
             }
         });
+
     }
 
 
@@ -232,9 +246,12 @@ public class MapActivity extends AppCompatActivity {
         Log.e("ERRRRRRR", response.toString());
         try {
             JSONObject jresponse;
+
             for (int i = 0; i < response.length(); i++) {
                 jresponse = response.getJSONObject(i);
                 addresses.add(jresponse.getString("address"));
+                maxOutputs.add(jresponse.getString("maxOutput"));
+                outputs.add(jresponse.getJSONArray("dayOutput").getJSONObject(0).getString("output"));
             }
 
         } catch (JSONException e) {
@@ -242,3 +259,5 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 }
+/*[{"dayOutput":[{"output":"3333"}],"address":"서울 강남구 압구정로 102 형지제2빌딩"}
+,{"dayOutput":[{"output":"0"}],"address":"서울 서대문구 홍제동 285-14 "}]*/
