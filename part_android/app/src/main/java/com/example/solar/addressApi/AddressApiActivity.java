@@ -1,8 +1,12 @@
 package com.example.solar.addressApi;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -12,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.solar.R;
 import com.example.solar.network.Config;
+
+import java.io.IOException;
+import java.util.List;
 
 public class AddressApiActivity extends AppCompatActivity {
 
@@ -29,6 +36,9 @@ public class AddressApiActivity extends AppCompatActivity {
         // 핸들러를 통한 JavaScript 이벤트 반응
         handler = new Handler();
     }
+
+
+
 
     public void init_webView() {
         // WebView 설정
