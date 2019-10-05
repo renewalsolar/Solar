@@ -79,7 +79,7 @@ module.exports = {
     allInfoPannel: function (req, res, next) {
 
         var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
-        Pannel.find({dayOutput: { "$elemMatch": { date: date }}},{_id:0,address:1, dayOutput : {$slice :-1}, 'dayOutput.output': 1}).exec(function (error, p) {
+        Pannel.find({dayOutput: { "$elemMatch": { date: date }}},{_id:0, address:1, maxOutput:1, dayOutput : {$slice :-1}, 'dayOutput.output': 1}).exec(function (error, p) {
             if (error) {
                 console.log(error);
             }
@@ -88,6 +88,4 @@ module.exports = {
             }
         })
     }
-
-
 }

@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setupToolBarMenu(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Navigation View");
-        Log.e("ERRRRRR","SETNAVU");
+        toolbar.setTitle("Settings");
     }
 
     private void setupNavigationDrawerMenu(){
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         closeDrawer();
 
         switch (menuItem.getItemId()){
-            case R.id.menu_info_update:
+            case R.id.menu_pannel_create:
                 startActivity(new Intent(this, RegisterActivity.class));
 
                 break;

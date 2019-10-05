@@ -8,8 +8,7 @@ var PannelSchema = new Schema({
     dayOutput:[ {
         date: String,
         output: String
-    },
-],
+    },],
     address: String
 });
 

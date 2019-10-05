@@ -2,10 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_pannel_create"
+        android:icon="@mipmap/ic_launcher"
+        android:title="판넬등록"
+        />
+
+    <item
+        android:id="@+id/menu_pannel_read"
+        android:icon="@mipmap/ic_launcher"
+        android:title="판넬보기"
+        />
+
+    <item
         android:id="@+id/menu_info_update"
         android:icon="@mipmap/ic_launcher"
-        android:title="정보수정"
+        android:title="판넬수정"
         />
+    <item
+        android:id="@+id/menu_info_delete"
+        android:icon="@mipmap/ic_launcher"
+        android:title="판넬삭제"
+        />
+
+
 
 
 </menu>

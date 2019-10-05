@@ -225,7 +225,7 @@ public class MapActivity extends AppCompatActivity {
             }
         };
     }
-    
+
     private void getPannels(JSONArray response) {
         Log.e("ERRRRRRR", response.toString());
         try {
