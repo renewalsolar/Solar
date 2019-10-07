@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.solar.Models.UserInfo;
 import com.example.solar.R;
 import com.example.solar.addressApi.AddressApiActivity;
 import com.example.solar.network.Config;
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnDone;
     private Button btnCancel;
 
+    private UserInfo user;
     private Boolean serverAuth;
 
     private NetworkUtility networkUtility;
@@ -47,6 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
         btnCancel = (Button) findViewById(R.id.btn_pannel_cancel);
 
         networkUtility = new NetworkUtility(getApplicationContext());
+
+        Intent intent = getIntent();
+        user = (UserInfo)intent.getSerializableExtra("USER_INFO");
+
+        etAuth.setText(user.getId());
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +125,6 @@ public class RegisterActivity extends AppCompatActivity {
             jsonObject.put("auth_id", etAuth.getText().toString());
             jsonObject.put("maxOutput", etMaxoutput.getText().toString());
             jsonObject.put("address", etAddress.getText().toString());
-
 
             networkUtility.requestServer(Request.Method.POST,
                     Config.MAIN_URL+Config.POST_PANNEL_REGISTER,

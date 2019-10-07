@@ -76,7 +76,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()){
             case R.id.menu_pannel_create:
-                startActivity(new Intent(this, RegisterActivity.class));
+                Intent intent = new Intent(this, RegisterActivity.class);
+                intent.putExtra("USER_INFO", user);
+
+                startActivity(intent);
 
                 break;
 
