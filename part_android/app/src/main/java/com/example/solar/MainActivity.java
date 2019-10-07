@@ -7,14 +7,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.solar.Models.UserInfo;
 import com.example.solar.fragment.DontHasPV;
-import com.example.solar.fragment.EcoHelper;
 import com.example.solar.fragment.HasPV;
 import com.example.solar.pannelManage.RegisterActivity;
 import com.example.solar.tabPager.CustomViewPager;
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             adapter.addFragment(new HasPV());
         }
         else{
-            adapter.addFragment(new EcoHelper());
+            adapter.addFragment(new DontHasPV());
         }
 
         viewPager.setAdapter(adapter);
