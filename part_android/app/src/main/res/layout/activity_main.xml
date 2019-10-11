@@ -36,8 +36,7 @@
         android:orientation="vertical"
         app:headerLayout="@layout/menu_header"
         app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
-        app:menu="@menu/items" />
+        app:itemTextColor="@color/black" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

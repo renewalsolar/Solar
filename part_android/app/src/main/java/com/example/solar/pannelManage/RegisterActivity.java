@@ -50,8 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         networkUtility = new NetworkUtility(getApplicationContext());
 
-        Intent intent = getIntent();
-        user = (UserInfo)intent.getSerializableExtra("USER_INFO");
+        Intent i = getIntent();
+        user = (UserInfo)i.getSerializableExtra("USER_INFO");
 
         etAuth.setText(user.getId());
 
@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddressApiActivity.class );
+                //////////////////////////////////////////////////////////////////////////////////////////////
                 startActivityForResult(intent, 1002);
             }
         });

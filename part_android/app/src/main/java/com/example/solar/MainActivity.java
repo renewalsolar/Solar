@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView.setNavigationItemSelectedListener(this);
 
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.register_menu);
+
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
                 toolbar,

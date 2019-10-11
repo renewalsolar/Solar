@@ -27,7 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        >
+
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
@@ -46,6 +48,8 @@
         <activity android:name=".addressApi.AddressApiActivity"/>
         <activity android:name=".pannelManage.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
+
+
     </application>
 
 </manifest>
