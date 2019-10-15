@@ -27,11 +27,6 @@
     </group>
 
     <item
-        android:id="@+id/menu_view_nonregister"
-        android:icon="@mipmap/ic_launcher"
-        android:title="비회원 화면보기" />
-
-    <item
         android:id="@+id/menu_user_logout"
         android:icon="@mipmap/ic_launcher"
         android:title="로그아웃" />

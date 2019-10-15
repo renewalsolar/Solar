@@ -23,14 +23,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private UserInfo user;
 
     private CustomViewPager viewPager;
-    private TabLayout tabLayout;
-
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +55,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.getMenu().clear();
-        navigationView.inflateMenu(R.menu.register_menu);
+
+        if(user.getId().equals("NULL"))
+            navigationView.inflateMenu(R.menu.nonregister_menu);
+        else
+            navigationView.inflateMenu(R.menu.register_menu);
 
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout,
