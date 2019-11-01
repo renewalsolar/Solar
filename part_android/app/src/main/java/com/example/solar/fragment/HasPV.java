@@ -25,18 +25,15 @@ public class HasPV extends Fragment {
     }
 
     Button btn_map;
-
     LineChart lineChart;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.installed, container, false);
+        View v = inflater.inflate(R.layout.fragment_main_installed, container, false);
         // Inflate the layout for this fragment
 
         btn_map = (Button)v.findViewById(R.id.btn_map);
         lineChart = (LineChart)v.findViewById(R.id.linechart);
-
 
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +74,6 @@ public class HasPV extends Fragment {
 
         lineData.setValueTextSize(9);
         lineChart.setData(lineData);
-
 
         return v;
     }

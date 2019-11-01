@@ -64,8 +64,9 @@ module.exports = {
 
     },
 
+    //사용자 개인 판넬 조회 판넬id, 주소, 최대출력량
     infoPannel: function (req, res, next) {
-        Pannel.find({ auth_id: req.params.auth_id }).exec(function (error, p) {
+        Pannel.find({ auth_id: req.params.auth_id },{_id:1,address:1,maxOutput:1}).exec(function (error, p) {
             if (error) {
                 console.log(error);
             }

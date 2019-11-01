@@ -4,7 +4,6 @@
     <group
         android:id="@+id/menu_group1">
 
-
         <item
             android:id="@+id/menu_pannel_create"
             android:icon="@mipmap/ic_launcher"
@@ -15,26 +14,17 @@
             android:icon="@mipmap/ic_launcher"
             android:title="판넬보기" />
 
-        <item
-            android:id="@+id/menu_info_update"
-            android:icon="@mipmap/ic_launcher"
-            android:title="판넬수정" />
-
-        <item
-            android:id="@+id/menu_info_delete"
-            android:icon="@mipmap/ic_launcher"
-            android:title="판넬삭제" />
     </group>
-
-    <item
-        android:id="@+id/menu_user_logout"
-        android:icon="@mipmap/ic_launcher"
-        android:title="로그아웃" />
 
     <item
         android:id="@+id/menu_user_update"
         android:icon="@mipmap/ic_launcher"
         android:title="회원정보수정" />
+
+    <item
+        android:id="@+id/menu_user_logout"
+        android:icon="@mipmap/ic_launcher"
+        android:title="로그아웃" />
 
     <item
         android:id="@+id/menu_user_unregister"

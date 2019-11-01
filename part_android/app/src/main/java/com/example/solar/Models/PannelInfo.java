@@ -17,6 +17,14 @@ public class PannelInfo implements Serializable{
         this.address = address;
     }
 
+    public PannelInfo(String _id, String maxOutput, String address){
+        this._id = _id;
+        this.maxOutput = maxOutput;
+        this.address = address;
+        this.auth_id = null;
+        this.dayOutput = null;
+    }
+
     public String get_id() {
         return _id;
     }

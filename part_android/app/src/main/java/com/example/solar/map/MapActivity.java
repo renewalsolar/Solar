@@ -106,7 +106,6 @@ public class MapActivity extends AppCompatActivity {
     private void setupMapView(Bundle savedInstanceState) {
         mapView = findViewById(R.id.mapView);
 
-       
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -230,8 +229,6 @@ public class MapActivity extends AppCompatActivity {
             }
         };
     }
-
-
 
     private Response.ErrorListener networkErrorListener() {
         return new Response.ErrorListener() {

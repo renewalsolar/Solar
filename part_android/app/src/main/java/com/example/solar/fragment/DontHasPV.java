@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.solar.R;
 import com.example.solar.UnityPlayerActivity;
-import com.github.mikephil.charting.charts.LineChart;
 
 public class DontHasPV extends Fragment {
 
@@ -24,20 +23,14 @@ public class DontHasPV extends Fragment {
     Button btn_jiwon;
     Button btn_upchae;
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.installnope, container, false);
+        View v = inflater.inflate(R.layout.fragment_main_noninstalled, container, false);
         // Inflate the layout for this fragment
 
         btn_ar = (Button)v.findViewById(R.id.arbutton);
         btn_jiwon = (Button)v.findViewById(R.id.btn_jiwon);
         btn_upchae = (Button)v.findViewById(R.id.btn_upchae);
-
-
-
 
         btn_ar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +59,6 @@ public class DontHasPV extends Fragment {
             }
         });
 
-
         return v;
-
     }
 }

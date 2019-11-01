@@ -2,7 +2,6 @@ package com.example.solar.personManage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.person_login);
+        setContentView(R.layout.activity_person_login);
 
         etId = (EditText) findViewById(R.id.et_person_login_id);
         etPw = (EditText) findViewById(R.id.et_person_login_pw);

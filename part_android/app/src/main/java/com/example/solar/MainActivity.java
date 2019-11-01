@@ -13,11 +13,11 @@ import android.view.MenuItem;
 import com.example.solar.Models.UserInfo;
 import com.example.solar.fragment.DontHasPV;
 import com.example.solar.fragment.HasPV;
+import com.example.solar.pannelManage.PersonnalActivity;
 import com.example.solar.pannelManage.RegisterActivity;
 import com.example.solar.tabPager.CustomViewPager;
 import com.example.solar.tabPager.PagerAdapter;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private UserInfo user;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.getMenu().clear();
 
-        if(user.getId().equals("NULL"))
+        if(user.getId().equals("NONE"))
             navigationView.inflateMenu(R.menu.nonregister_menu);
         else
             navigationView.inflateMenu(R.menu.register_menu);
@@ -78,13 +78,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (menuItem.getItemId()){
             case R.id.menu_pannel_create:
-                Intent intent = new Intent(this, RegisterActivity.class);
-                intent.putExtra("USER_INFO", user);
-
-                startActivity(intent);
-
+                Intent i1 = new Intent(this, RegisterActivity.class);
+                i1.putExtra("USER_INFO", user);
+                startActivity(i1);
                 break;
 
+            case R.id.menu_pannel_read:
+                Intent i2 = new Intent(this, PersonnalActivity.class);
+                i2.putExtra("USER_INFO", user);
+                startActivity(i2);
+                break;
         }
 
         return true;

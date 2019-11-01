@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pannel_register);
+        setContentView(R.layout.activity_pannel_register);
 
         etAuth = (EditText) findViewById(R.id.et_pannel_auth);
         etMaxoutput = (EditText) findViewById(R.id.et_pannel_maxoutput);
@@ -59,7 +59,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddressApiActivity.class );
-                //////////////////////////////////////////////////////////////////////////////////////////////
                 startActivityForResult(intent, 1002);
             }
         });
@@ -72,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                     requestPostRegister();
                 }
                 else
-                    Toast.makeText(getApplicationContext(),"회원가입 정보를 해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"정보를 입력 해주세요", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -82,7 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
     @Override
@@ -94,29 +92,24 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-
     public boolean checkSignUp() {
-        //유저이름 입력 확인
         if (etAuth.getText().toString().length() == 0) {
             Toast.makeText(RegisterActivity.this, "소유자 id를 입력하세요!", Toast.LENGTH_SHORT).show();
             etAuth.requestFocus();
             return false;
         }
 
-        //생년월일 입력 확인
         else if (etMaxoutput.getText().toString().length() == 0) {
             Toast.makeText(RegisterActivity.this, "최대 출력량를 입력하세요!", Toast.LENGTH_SHORT).show();
             etMaxoutput.requestFocus();
             return false;
         }
 
-        // 아이디 입력 확인
         else if (etAddress.getText().toString().length() == 0) {
             Toast.makeText(RegisterActivity.this, "주소를 입력하세요!", Toast.LENGTH_SHORT).show();
             etAddress.requestFocus();
             return false;
         }
-
         return true;
     }
 
@@ -170,5 +163,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
         };
     }
-
 }
