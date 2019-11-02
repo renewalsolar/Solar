@@ -24,6 +24,9 @@ module.exports = {
                 if (error) {
                     console.log(error);
                 }
+                else{
+                    console.log(data); 
+                }
             });
 
 
@@ -126,6 +129,8 @@ module.exports = {
                         { $set: { "hasPV": false } }, function (error, data) {
                             if (error) {
                                 console.log(error);
+                            }else{
+                                console.log(data); 
                             }
                         });
                     }
@@ -133,7 +138,9 @@ module.exports = {
                     Pannel.deleteOne({ _id: req.params.panel_id }, function (error, data) {
                         if (error) {
                             console.log(error);
-                        } 
+                        } else{
+                            console.log(data); 
+                        }
                     });
                 });
             }

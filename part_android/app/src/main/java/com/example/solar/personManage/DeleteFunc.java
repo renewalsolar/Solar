@@ -1,4 +1,4 @@
-package com.example.solar.pannelManage;
+package com.example.solar.personManage;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,21 +14,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DeletePanelFunc {
+public class DeleteFunc {
     private Context context;
     private NetworkUtility networkUtility;
 
-    public DeletePanelFunc(Context context, String panel_id){
+    public DeleteFunc(Context context, String person_id){
         this.context = context;
         networkUtility = new NetworkUtility(context);
 
-        requestgetArray(panel_id);
+        requestgetArray(person_id);
     }
 
-    public void requestgetArray(String panel_id) {
+    public void requestgetArray(String person_id) {
         try {
             networkUtility.requestServer(
-                    Config.MAIN_URL + Config.GET_PANNEL_DELETE + panel_id,
+                    Config.MAIN_URL + Config.GET_PERSON_DELETE + person_id,
                     null,
                     networkSuccessListener(),
                     networkErrorListener());

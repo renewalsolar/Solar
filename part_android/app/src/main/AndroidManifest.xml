@@ -48,9 +48,11 @@
         <activity android:name=".addressApi.AddressApiActivity"/>
         <activity android:name=".pannelManage.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
-        <activity android:name=".pannelManage.EditPanelActivity"
+        <activity android:name=".pannelManage.EditActivity"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
         <activity android:name=".pannelManage.PersonnalActivity"></activity>
+        <activity android:name=".personManage.EditActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
 
 
     </application>

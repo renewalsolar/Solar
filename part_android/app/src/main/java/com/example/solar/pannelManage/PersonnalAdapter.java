@@ -3,14 +3,12 @@ package com.example.solar.pannelManage;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -72,7 +70,7 @@ public class PersonnalAdapter extends RecyclerView.Adapter<PersonnalAdapter.View
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, EditPanelActivity.class);
+                Intent intent = new Intent(context, EditActivity.class);
                 intent.putExtra("USER_INFO", user);
                 intent.putExtra("PANNEL_INFO", panel);
                 intent.putExtra("INDEX", position);
@@ -83,7 +81,7 @@ public class PersonnalAdapter extends RecyclerView.Adapter<PersonnalAdapter.View
         holder.del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DeletePanelFunc(context,panel.get_id());
+                new DeleteFunc(context, panel.get_id());
                // notifyItemRemoved(position);
                 panelList.remove(position);
                 notifyDataSetChanged();

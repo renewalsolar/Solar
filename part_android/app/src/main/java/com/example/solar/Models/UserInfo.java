@@ -31,4 +31,20 @@ public class UserInfo implements Serializable {
     public boolean isHasPV() {
         return hasPV;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHasPV(boolean hasPV) {
+        this.hasPV = hasPV;
+    }
 }

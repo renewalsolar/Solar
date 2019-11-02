@@ -17,12 +17,12 @@ import com.example.solar.fragment.DontHasPV;
 import com.example.solar.fragment.HasPV;
 import com.example.solar.pannelManage.PersonnalActivity;
 import com.example.solar.pannelManage.RegisterActivity;
+import com.example.solar.personManage.DeleteFunc;
+import com.example.solar.personManage.EditActivity;
 import com.example.solar.personManage.LoginActivity;
 import com.example.solar.tabPager.CustomViewPager;
 import com.example.solar.tabPager.PagerAdapter;
 import com.google.android.material.navigation.NavigationView;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private UserInfo user;
@@ -30,7 +30,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CustomViewPager viewPager;
 
     private Toolbar toolbar;
+    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+
+    private View headerView;
+    private TextView nave_tv_name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Intent intent = getIntent();
         user = (UserInfo)intent.getSerializableExtra("USER_INFO");
-
 
 
         setupToolBarMenu();
@@ -54,14 +58,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setupNavigationDrawerMenu(){
-        NavigationView navigationView = (NavigationView)findViewById(R.id.navigationView);
+        navigationView = (NavigationView)findViewById(R.id.navigationView);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View headerView = navigationView.getHeaderView(0);
+        headerView = navigationView.getHeaderView(0);
 
-        TextView tv = headerView.findViewById(R.id.navi_tv_name);
-        tv.setText(user.getName() + " 님");
+        nave_tv_name = headerView.findViewById(R.id.navi_tv_name);
+        nave_tv_name.setText(user.getName() + " 님");
 
         navigationView.getMenu().clear();
 
@@ -103,6 +107,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(i3);
                 finish();
                 break;
+
+            case R.id.menu_user_update:
+                Intent i4 = new Intent(this, EditActivity.class);
+                i4.putExtra("USER_INFO", user);
+                startActivityForResult(i4, 1006);
+                break;
+
+            case R.id.menu_user_unregister:
+                new DeleteFunc(this, user.getId());
+                Intent i5 = new Intent(this, LoginActivity.class);
+                startActivity(i5);
+                finish();
+                break;
+
+            case R.id.menu_user_register:
+                Intent i6 = new Intent(this, LoginActivity.class);
+                startActivity(i6);
+                finish();
+                break;
         }
 
         return true;
@@ -138,5 +161,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         viewPager.setAdapter(adapter);
         //viewPager.setOffscreenPageLimit(10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1006 && resultCode == RESULT_OK) {
+            String name = data.getStringExtra("NAME");
+
+            user.setName(name);
+            nave_tv_name.setText(user.getName() + " 님");
+        }
     }
 }

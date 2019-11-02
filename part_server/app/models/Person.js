@@ -5,7 +5,6 @@ var PersonSchema = new Schema({
     name: String,
     id: String,
     password: String,
-    address: String,
     hasPV: Boolean
 });
 

@@ -21,14 +21,6 @@
         android:hint="User Name" />
 
     <EditText
-        android:id="@+id/et_person_register_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:hint="Address" />
-
-    <EditText
         android:id="@+id/et_person_register_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

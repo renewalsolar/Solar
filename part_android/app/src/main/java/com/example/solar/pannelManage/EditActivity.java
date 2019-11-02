@@ -22,7 +22,7 @@ import com.example.solar.network.NetworkUtility;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class EditPanelActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity {
     private EditText etAuth;
     private EditText etMaxoutput;
     private EditText etAddress;
@@ -150,11 +150,11 @@ public class EditPanelActivity extends AppCompatActivity {
 
                 finally {
                     if(serverAuth){
-                        Toast.makeText(EditPanelActivity.this, "등록 성공!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditActivity.this, "등록 성공!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else{
-                        Toast.makeText(EditPanelActivity.this, "등록 실패 다시 시도 해 주세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditActivity.this, "등록 실패 다시 시도 해 주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
