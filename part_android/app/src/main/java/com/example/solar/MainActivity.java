@@ -9,15 +9,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.solar.Models.UserInfo;
 import com.example.solar.fragment.DontHasPV;
 import com.example.solar.fragment.HasPV;
 import com.example.solar.pannelManage.PersonnalActivity;
 import com.example.solar.pannelManage.RegisterActivity;
+import com.example.solar.personManage.LoginActivity;
 import com.example.solar.tabPager.CustomViewPager;
 import com.example.solar.tabPager.PagerAdapter;
 import com.google.android.material.navigation.NavigationView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private UserInfo user;
@@ -41,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setupNavigationDrawerMenu();
 
         setupViewPager();
-       // displayMenu();
     }
 
     private void setupToolBarMenu(){
@@ -53,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView)findViewById(R.id.navigationView);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView tv = headerView.findViewById(R.id.navi_tv_name);
+        tv.setText(user.getName() + " 님");
 
         navigationView.getMenu().clear();
 
@@ -87,6 +96,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent i2 = new Intent(this, PersonnalActivity.class);
                 i2.putExtra("USER_INFO", user);
                 startActivity(i2);
+                break;
+
+            case R.id.menu_user_logout:
+                Intent i3 = new Intent(this, LoginActivity.class);
+                startActivity(i3);
+                finish();
                 break;
         }
 

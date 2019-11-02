@@ -68,7 +68,7 @@ public class PersonnalActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            personnalAdapter = new PersonnalAdapter(pannels);
+            personnalAdapter = new PersonnalAdapter(pannels, user);
             mRecyclerView.setAdapter(personnalAdapter);
             personnalAdapter.notifyDataSetChanged();
         }
@@ -119,6 +119,22 @@ public class PersonnalActivity extends AppCompatActivity {
 
         } catch (JSONException e) {
             throw new IllegalArgumentException("Failed to parse the String: ");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1004 && resultCode == RESULT_OK) {
+            int index = data.getIntExtra("INDEX",0);
+            String maxOutput = data.getStringExtra("MAXOUTPUT");
+            String address = data.getStringExtra("ADDRESS");
+
+            pannels.get(index).setMaxOutput(maxOutput);
+            pannels.get(index).setAddress(address);
+
+            personnalAdapter.notifyItemChanged(index);
         }
     }
 }

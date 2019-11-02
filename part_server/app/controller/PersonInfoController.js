@@ -35,7 +35,7 @@ module.exports = {
                 res.send({ message: "아이디와 비밀번호를 확인해주세요", success: false, hasPV: false});
             }
             else {
-                res.send({ message: "Authorized", success: true, hasPV: Person.hasPV });
+                res.send({ message: "Authorized", success: true, name:Person.name ,hasPV: Person.hasPV });
             }
         });
     },

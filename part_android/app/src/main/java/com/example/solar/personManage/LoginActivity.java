@@ -2,6 +2,7 @@ package com.example.solar.personManage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private String serverMsg;
     private boolean serverAuth;
 
+    private String name;
     private boolean hasPV;
 
     private NetworkUtility networkUtility;
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 
-                intent.putExtra("USER_INFO", new UserInfo("NONE", "NONE", false));
+                intent.putExtra("USER_INFO", new UserInfo("NONE", "NONE", "비회원", false));
                 startActivity(intent);
                 finish();
             }
@@ -106,9 +108,11 @@ public class LoginActivity extends AppCompatActivity {
         return new Response.Listener<JSONObject>() {
             public void onResponse(JSONObject response) {
 
+                Log.e("ERRRRRRR",response.toString());
                 try {
                     serverMsg = response.getString("message");
                     serverAuth = response.getBoolean("success");
+                    name = response.getString("name");
                     hasPV = response.getBoolean("hasPV");
 
                 } catch (JSONException e) {
@@ -119,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (serverAuth) {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("USER_INFO", new UserInfo(etId.getText().toString(), etPw.getText().toString(), hasPV));
+                    intent.putExtra("USER_INFO", new UserInfo(etId.getText().toString(), etPw.getText().toString(), name, hasPV));
                     startActivity(intent);
                     finish();
                 }
