@@ -7,9 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.example.solar.SubThread.MonthlyBenefit;
 import com.example.solar.R;
 import com.example.solar.UnityPlayerActivity;
 
@@ -22,6 +26,9 @@ public class DontHasPV extends Fragment {
     Button btn_ar;
     Button btn_jiwon;
     Button btn_upchae;
+    TextView curpos;
+    TextView predictbenefit;
+    ImageView loading_view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,6 +38,12 @@ public class DontHasPV extends Fragment {
         btn_ar = (Button)v.findViewById(R.id.arbutton);
         btn_jiwon = (Button)v.findViewById(R.id.btn_jiwon);
         btn_upchae = (Button)v.findViewById(R.id.btn_upchae);
+        loading_view = (ImageView) v.findViewById(R.id.loading_view);
+        curpos = (TextView) v.findViewById(R.id.curpos);
+        predictbenefit = (TextView) v.findViewById(R.id.predictbenefit);
+
+        Glide.with(this).load(R.drawable.loading).into(loading_view);
+        new MonthlyBenefit(v.getContext(), curpos, predictbenefit, loading_view);
 
         btn_ar.setOnClickListener(new View.OnClickListener() {
             @Override
