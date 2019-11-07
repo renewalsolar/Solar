@@ -41,7 +41,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".UnityPlayerActivity" />
         <activity android:name=".personManage.LoginActivity" />
         <activity android:name=".personManage.RegisterActivity" />
         <activity android:name=".map.MapActivity"/>
@@ -53,6 +52,7 @@
         <activity android:name=".pannelManage.PersonnalActivity"></activity>
         <activity android:name=".personManage.EditActivity"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
+        <activity android:name=".UnityPlayerActivity"></activity>
 
 
     </application>
