@@ -55,6 +55,8 @@
         <activity android:name=".personManage.EditActivity"
             android:theme="@style/Theme.AppCompat.Dialog"></activity>
         <activity android:name=".UnityPlayerActivity"></activity>
+        <activity android:name=".crawling.BusinessParsingActivity"></activity>
+        <activity android:name=".crawling.PanelParsingActivity"></activity>
 
     </application>
 
