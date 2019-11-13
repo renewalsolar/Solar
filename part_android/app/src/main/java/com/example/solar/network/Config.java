@@ -14,6 +14,7 @@ public class Config {
     public final static String POST_PANNEL_EDIT = "api/pannel/edit/"; // + pannel_id
     public final static String GET_PANNEL_DELETE = "api/pannel/delete/"; // + pannel_id
     public final static String GET_PANNEL_PERSONAL = "api/pannel/personal_info/"; // + auth_id
+    public final static String GET_PANNEL_GRAPH = "api/pannel/personal_graph/";// + auth_id
 
     public final static String GET_MAP_PHP = "api/map/";
 }

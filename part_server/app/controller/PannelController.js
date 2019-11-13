@@ -60,8 +60,8 @@ module.exports = {
             }
             else {
                 //find panel
-                Pannel.findOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } }},function(error,p){
-                    console.log(p.dayOutput);
+                Pannel.findOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } }},function(error, res){
+                    console.log(res);
                 });
 
                 Pannel.updateOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } },
@@ -116,10 +116,10 @@ module.exports = {
         })
     },
 
-    //그래프 최근 30개
+    //그래프 최근 30일
     PersonalGraph: function (req, res, next) {
         var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
-        Pannel.find({ auth_id: req.params.auth_id, dayOutput: { "$elemMatch": { date: date } } }, { dayOutput: { $slice: -30 }, 'dayOutput.output': 1 }).exec(function (error, p) {
+        Pannel.find({ auth_id: req.params.auth_id }, { dayOutput: { $slice: -30 }, 'dayOutput.output': 1 }).exec(function (error, p) {
             if (error) {
                 console.log(error);
             }
