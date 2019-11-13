@@ -6,11 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.solar.Models.UserInfo;
 import com.example.solar.R;
+import com.example.solar.SubThread.PersonalGeneration;
 import com.example.solar.map.MapActivity;
+import com.example.solar.pannelManage.PersonnalAdapter;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -20,16 +24,26 @@ import java.util.ArrayList;
 
 public class HasPV extends Fragment {
 
-    public HasPV() {
-        // Required empty public constructor
+    private Button btn_map;
+    private LineChart lineChart;
+    private TextView tv_generator;
+
+    private PersonalGeneration personalGeneration;
+
+    private UserInfo user;
+
+    public HasPV(UserInfo user){
+        this.user = user;
     }
 
-    Button btn_map;
-    LineChart lineChart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_installed, container, false);
+
+        tv_generator = v.findViewById(R.id.realtime_elec);
+
+        personalGeneration = new PersonalGeneration(getContext(), tv_generator, user);
         // Inflate the layout for this fragment
 
         btn_map = (Button)v.findViewById(R.id.btn_map);
@@ -43,19 +57,7 @@ public class HasPV extends Fragment {
                 //Toast.makeText(getContext(),"추후 기능 추가 예정",Toast.LENGTH_LONG).show();
             }
         });
-
-//        money = (300 * 93.3) + (150 * 187.9) + (22.2 * 280.6);
-//
-//        text_qty.setText(Double.toString(pwr_qty) + "kWh");
-//        if (pwr_qty < 300) {
-//            img_nu.setImageResource(R.drawable.nu1); // 93.3원
-//        }
-//        else if(pwr_qty < 450){
-//            img_nu.setImageResource(R.drawable.nu2); // 187.9원
-//        }else{
-//            img_nu.setImageResource(R.drawable.nu3); // 280.6원
-//        }
-
+        
         lineChart.invalidate(); //차트 초기화 작업
         lineChart.clear();
 
@@ -75,6 +77,12 @@ public class HasPV extends Fragment {
         lineData.setValueTextSize(9);
         lineChart.setData(lineData);
 
+
+
         return v;
+    }
+
+    public void threadStop (){
+        personalGeneration.threadStop();
     }
 }

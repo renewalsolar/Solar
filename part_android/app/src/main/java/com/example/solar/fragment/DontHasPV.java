@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.solar.SubThread.MonthlyBenefit;
+import com.example.solar.SubThread.PredictGeneration;
 import com.example.solar.R;
 import com.example.solar.UnityPlayerActivity;
 
@@ -43,7 +43,7 @@ public class DontHasPV extends Fragment {
         predictbenefit = (TextView) v.findViewById(R.id.predictbenefit);
 
         Glide.with(this).load(R.drawable.loading).into(loading_view);
-        new MonthlyBenefit(v.getContext(), curpos, predictbenefit, loading_view);
+        new PredictGeneration(v.getContext(), curpos, predictbenefit, loading_view);
 
         btn_ar.setOnClickListener(new View.OnClickListener() {
             @Override

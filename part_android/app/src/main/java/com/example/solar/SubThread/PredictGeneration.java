@@ -1,6 +1,5 @@
 package com.example.solar.SubThread;
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -17,8 +16,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,7 +27,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonthlyBenefit extends Fragment {
+public class PredictGeneration {
     private String htmlPageUrl
             = "https://www.weather.go.kr/weather/climate/average_30years.jsp?yy_st=2011&stn=0&norm=Y&obs=SS&x=24&y=13";
     private Geocoder geocoder;
@@ -47,8 +44,8 @@ public class MonthlyBenefit extends Fragment {
     public TextView uiCurpos, uiPredictbenefit;
     public ImageView loading_view;
 
-    public MonthlyBenefit(final Context context, final TextView uiCurpos,
-                          final TextView uiPredictbenefit, final ImageView loading_view) {
+    public PredictGeneration(final Context context, final TextView uiCurpos,
+                             final TextView uiPredictbenefit, final ImageView loading_view) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
