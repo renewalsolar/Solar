@@ -31,18 +31,20 @@ public class PowerGraph {
     private UserInfo user;
     private Context context;
     private LineChart lineChart;
+    private TextView won;
 
     private NetworkUtility networkUtility;
 
     private Thread thread;
     private List<ArrayList<String>> lists;
     private LineData lineData;
+    private int breakevenPoint = 0; // 손익 분기점
 
-
-    public PowerGraph(final Context context, final LineChart lineChart, UserInfo user) {
+    public PowerGraph(final Context context, final LineChart lineChart, final TextView won, UserInfo user) {
         this.context = context;
         this.lineChart = lineChart;
         this.user = user;
+        this.won = won;
 
         networkUtility = new NetworkUtility(context);
         lists = new ArrayList<ArrayList<String>>();
@@ -62,7 +64,6 @@ public class PowerGraph {
 
         thread.start();
     }
-
 
     public void requestGetPower() {
         networkUtility.requestServer(

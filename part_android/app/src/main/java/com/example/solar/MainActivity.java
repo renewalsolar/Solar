@@ -64,12 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupViewPager();
 
-//        if (((LocationManager) this.getSystemService(LOCATION_SERVICE))
-//                .isProviderEnabled(LocationManager.GPS_PROVIDER) == false) {
-//            showSettingsAlert();
-//        } // 사용자에게 GPS 활성화 요청, 밑에 깔림
-        //getLocationPermission();
-        // 사용자에게 위치 권한 요청. 위에 보임
     }
 
     private void setupToolBarMenu() {

@@ -27,7 +27,7 @@ public class BusinessParsingActivity extends AppCompatActivity {
     private ArrayList<ItemObject> list = new ArrayList();
     private int executeCnt = 0;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = 21)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

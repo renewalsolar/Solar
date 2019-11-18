@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{54D143C4-376B-4739-9BF6-EA44A7B26529}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>part_repeater</RootNamespace>
+    <AssemblyName>part_repeater</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\ControllerFactory.cs" />
+    <Compile Include="Controller\ControllerManager.cs" />
+    <Compile Include="Controller\IModbusController.cs" />
+    <Compile Include="Controller\ModbusController.cs" />
+    <Compile Include="DataConverter.cs" />
+    <Compile Include="Model\Action\IOperation.cs" />
+    <Compile Include="Model\Action\ModbusOperations\ModbusMasterOperator.cs" />
+    <Compile Include="Model\Action\ModbusOperations\ModbusOperation.cs" />
+    <Compile Include="Model\Action\ModbusOperations\ModbusOperationProcessor.cs" />
+    <Compile Include="Model\Action\ModbusOperations\RealTimeDataReadOperation.cs" />
+    <Compile Include="Model\Action\ModbusOperations\RegisterNotFoundException.cs" />
+    <Compile Include="Model\Action\OperationFactory.cs" />
+    <Compile Include="Model\Data\IWriteData.cs" />
+    <Compile Include="Model\Data\ManagerData.cs" />
+    <Compile Include="Model\Data\ModbusDatas\DeviceRealTimeData.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Data\Data.cs" />
+    <Compile Include="Model\Data\IData.cs" />
+    <Compile Include="Model\Data\ModbusDatas\DeviceStatisticsData.cs" />
+    <Compile Include="Model\Data\ModbusDatas\DeviceStatusData.cs" />
+    <Compile Include="Model\Data\ModbusDatas\OperationStatusData.cs" />
+    <Compile Include="Model\Data\sqlDatas\SerialPortData.cs" />
+    <Compile Include="Model\GlobalManager\StationDataManager.cs" />
+    <Compile Include="Model\GlobalManager\SerialPortManager.cs" />
+    <Compile Include="Model\IStationDataModel.cs" />
+    <Compile Include="Model\IStationInfoModel.cs" />
+    <Compile Include="Model\ModelFactory.cs" />
+    <Compile Include="Model\StationDataModel.cs" />
+    <Compile Include="Monitor.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="View\IView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Modbus">
+      <HintPath>..\..\SolarStationMonitor\packages\Modbus.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Ports, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Ports.4.6.0\lib\net461\System.IO.Ports.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\System.Net.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unme.Common, Version=1.1.0.0, Culture=neutral, PublicKeyToken=da57c01ae4598fdd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\SolarStationMonitor\packages\Unme.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

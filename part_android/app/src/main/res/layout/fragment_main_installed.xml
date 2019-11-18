@@ -178,7 +178,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
-                            android:text="%d 달"
+                            android:text="98 달"
                             android:textColor="@color/colorDefault"
                             android:textSize="30sp"
                             card_view:fontFamily="@font/jalnan" />
@@ -207,7 +207,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
-                            android:text="\n나무 n그루 심는 효과"
+                            android:text="\n나무 112그루 심는 효과"
                             android:textColor="@color/black"
                             android:textSize="15sp"
                             card_view:fontFamily="@font/jalnan" />

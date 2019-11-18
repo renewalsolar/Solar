@@ -28,6 +28,7 @@ public class HasPV extends Fragment {
     private Button btn_map;
     private LineChart lineChart;
     private TextView tv_generator;
+    private TextView won;
 
     private PersonalGeneration personalGeneration;
     private PowerGraph powerGraph;
@@ -47,9 +48,10 @@ public class HasPV extends Fragment {
         lineChart = (LineChart)v.findViewById(R.id.linechart);
 
         btn_map = (Button)v.findViewById(R.id.btn_map);
+        won = (TextView)v.findViewById(R.id.won);
 
         personalGeneration = new PersonalGeneration(getContext(), tv_generator, user);
-        powerGraph = new PowerGraph(getContext(), lineChart, user);
+        powerGraph = new PowerGraph(getContext(), lineChart, won, user);
 
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override

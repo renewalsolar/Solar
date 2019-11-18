@@ -62,6 +62,7 @@ module.exports = {
                 //find panel
                 Pannel.findOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } }},function(error, res){
                     console.log(res.dayOutput[0].output); // string 형태임 수정 필요
+                    // 들어오는 값과 합쳐서 업데이트 해야함
                 });
 
                 Pannel.updateOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } },
