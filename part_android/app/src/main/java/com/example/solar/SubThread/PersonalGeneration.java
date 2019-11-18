@@ -103,7 +103,7 @@ public class PersonalGeneration {
 
             for (int i = 0; i < response.length(); i++) {
                 jresponse = response.getJSONObject(i);
-                value += jresponse.getJSONArray("dayOutput").getJSONObject(0).getString("output") + "KWh\n";
+                value += jresponse.getJSONArray("dayOutput").getJSONObject(0).getString("output") + "Wh\n";
             }
 
         } catch (JSONException e) {

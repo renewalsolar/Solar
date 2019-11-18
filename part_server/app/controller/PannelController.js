@@ -59,20 +59,32 @@ module.exports = {
                 res.send({ success: true });
             }
             else {
-                //find panel
-                Pannel.findOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } }},function(error, res){
-                    console.log(res.dayOutput[0].output); // string 형태임 수정 필요
-                    // 들어오는 값과 합쳐서 업데이트 해야함
-                });
+                var value;
+                var value2;
+                var str;
 
-                Pannel.updateOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } },
-                    { $set: { "dayOutput.$.output": req.body.output } }, function (error, data) {
+                Pannel.findOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } }}, 
+                { dayOutput: { $slice: -1 }, 'dayOutput.output': 1 },function(error, res){ 
+                    value = res.dayOutput[0].output;
+                    value *= 1; // string to int
+
+                    value2 = req.body.output;
+
+                    value2 *= 15; // *sec
+                    value +=  value2;
+                    str = value;
+
+                    Pannel.updateOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } },
+                    { $set: { "dayOutput.$.output": str} }, function (error, data) {
                         if (error) {
                             console.log(error);
                         } else {
                             console.log(data);
                         }
                     });
+                });
+
+                
                 res.send({ success: true });
             }
         });
