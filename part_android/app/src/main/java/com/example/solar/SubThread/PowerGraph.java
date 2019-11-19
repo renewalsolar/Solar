@@ -134,7 +134,8 @@ public class PowerGraph {
                     ArrayList<String> data = lists.get(i);
 
                     for(int j = 0; j < data.size(); j++){
-                        values.add(new Entry(j, Integer.parseInt(data.get(j))));
+
+                        values.add(new Entry(j, Math.round(Float.parseFloat(data.get(j))) ));
                     }
 
                     LineDataSet lineDataSet = new LineDataSet(values, "panel of " + i);

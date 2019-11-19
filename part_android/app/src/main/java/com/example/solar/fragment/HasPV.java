@@ -15,13 +15,7 @@ import com.example.solar.R;
 import com.example.solar.SubThread.PersonalGeneration;
 import com.example.solar.SubThread.PowerGraph;
 import com.example.solar.map.MapActivity;
-import com.example.solar.pannelManage.PersonnalAdapter;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-
-import java.util.ArrayList;
 
 public class HasPV extends Fragment {
 
@@ -58,7 +52,6 @@ public class HasPV extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MapActivity.class);
                 startActivity(intent);
-                //Toast.makeText(getContext(),"추후 기능 추가 예정",Toast.LENGTH_LONG).show();
             }
         });
 

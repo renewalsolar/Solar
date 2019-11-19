@@ -65,12 +65,15 @@ module.exports = {
 
                 Pannel.findOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } }}, 
                 { dayOutput: { $slice: -1 }, 'dayOutput.output': 1 },function(error, res){ 
+                    console.log(req.body.output);
                     value = res.dayOutput[0].output;
                     value *= 1; // string to int
 
                     value2 = req.body.output;
 
-                    value2 *= 15; // *sec
+                    // value2 /= 1000; // *sec
+                    // value2 *= 15;
+                    value2 *= 1;
                     value +=  value2;
                     str = value;
 
