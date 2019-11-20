@@ -8,7 +8,7 @@
     class ModbusController : IModbusController
     {
         private const string STATION_NAME = "solar";
-        private const string PORT_NAME = "COM4";
+        private const string PORT_NAME = "COM12";
         private const byte CONTROLLER_ID = 0x01;
 
         private IStationDataModel model;

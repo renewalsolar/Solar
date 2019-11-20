@@ -12,7 +12,7 @@
 
     internal class RealTimeDataReadOperation : ModbusOperation<ushort>
     {
-        private const string SERVER_URL = "http://192.168.0.2:3001/api/pannel/update/5d9754d15f88c22e80202f0c";
+        private const string SERVER_URL = "http://192.168.43.149:3001/api/pannel/update/5dbd2ae32a9c80128423a8a0";
 
         private JsonObjectCollection obj = new JsonObjectCollection();
 
