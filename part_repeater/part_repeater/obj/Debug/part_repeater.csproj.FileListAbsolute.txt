@@ -1,0 +1,15 @@
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\part_repeater.exe.config
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\part_repeater.exe
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\part_repeater.pdb
+C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.csproj.CoreCompileInputs.cache
+C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.exe
+C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.pdb
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\Modbus.dll
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\System.IO.Ports.dll
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\Unme.Common.dll
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\System.IO.Ports.xml
+C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.csproj.CopyComplete
+C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.Form1.resources
+C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.csproj.GenerateResource.cache
+C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.csprojAssemblyReference.cache
+C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\log4net.dll

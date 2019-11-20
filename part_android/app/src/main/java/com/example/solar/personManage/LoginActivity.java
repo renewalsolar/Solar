@@ -1,6 +1,9 @@
 package com.example.solar.personManage;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -76,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        getLocationPermission();
     }
 
     @Override
@@ -138,5 +143,18 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
+    }
+
+    private void getLocationPermission() {
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
+        } else {
+            Log.e("getLocationPermission", "permission already granted");
+        }
     }
 }

@@ -29,7 +29,6 @@ module.exports = {
                 }
             });
 
-
         newPannel.save(function (error, data) {
             if (error) {
                 res.send({ success: false });
@@ -40,11 +39,8 @@ module.exports = {
         }); // DB 정보 저장
     },
 
-
     UpdatePannel: function (req, res, next) {
         var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
-
-        console.log(date);
 
         Pannel.find({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } }).exec(function (error, p) {
             if (p.length == 0) {
@@ -63,15 +59,35 @@ module.exports = {
                 res.send({ success: true });
             }
             else {
-                //find panel
-                Pannel.updateOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } },
-                    { $set: { "dayOutput.$.output": req.body.output } }, function (error, data) {
+                var value;
+                var value2;
+                var str;
+
+                Pannel.findOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } }}, 
+                { dayOutput: { $slice: -1 }, 'dayOutput.output': 1 },function(error, res){ 
+                    console.log(req.body.output);
+                    value = res.dayOutput[0].output;
+                    value *= 1; // string to int
+
+                    value2 = req.body.output;
+
+                    // value2 /= 1000; // *sec
+                    // value2 *= 15;
+                    value2 *= 1;
+                    value +=  value2;
+                    str = value;
+
+                    Pannel.updateOne({ "_id": req.params.pannel_id, "dayOutput": { "$elemMatch": { "date": date } } },
+                    { $set: { "dayOutput.$.output": str} }, function (error, data) {
                         if (error) {
                             console.log(error);
                         } else {
                             console.log(data);
                         }
                     });
+                });
+
+                
                 res.send({ success: true });
             }
         });
@@ -94,6 +110,32 @@ module.exports = {
     //사용자 개인 판넬 조회 판넬id, 주소, 최대출력량
     infoPannel: function (req, res, next) {
         Pannel.find({ auth_id: req.params.auth_id }, { _id: 1, address: 1, maxOutput: 1 }).exec(function (error, p) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                res.send(p);
+            }
+        })
+    },
+
+    //개인별 일일 발전량
+    PersonalPannel: function (req, res, next) {
+        var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
+        Pannel.find({ auth_id: req.params.auth_id, dayOutput: { "$elemMatch": { date: date } } }, { dayOutput: { $slice: -1 }, 'dayOutput.output': 1 }).exec(function (error, p) {
+            if (error) {
+                console.log(error);
+            }
+            else {
+                res.send(p);
+            }
+        })
+    },
+
+    //그래프 최근 30일
+    PersonalGraph: function (req, res, next) {
+        var date = new Date().toISOString().substr(0, 10).replace('T', ' ');
+        Pannel.find({ auth_id: req.params.auth_id }, { dayOutput: { $slice: -30 }, 'dayOutput.output': 1 }).exec(function (error, p) {
             if (error) {
                 console.log(error);
             }

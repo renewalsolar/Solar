@@ -82,7 +82,6 @@ public class PersonnalAdapter extends RecyclerView.Adapter<PersonnalAdapter.View
             @Override
             public void onClick(View v) {
                 new DeleteFunc(context, panel.get_id());
-               // notifyItemRemoved(position);
                 panelList.remove(position);
                 notifyDataSetChanged();
 

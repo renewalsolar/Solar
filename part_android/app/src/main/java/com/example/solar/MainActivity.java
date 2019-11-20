@@ -3,21 +3,12 @@ package com.example.solar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.PermissionChecker;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private View headerView;
     private TextView nave_tv_name;
 
+    private  Fragment fa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +53,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setupViewPager();
 
-//        if (((LocationManager) this.getSystemService(LOCATION_SERVICE))
-//                .isProviderEnabled(LocationManager.GPS_PROVIDER) == false) {
-//            showSettingsAlert();
-//        } // 사용자에게 GPS 활성화 요청, 밑에 깔림
-        //getLocationPermission();
-        // 사용자에게 위치 권한 요청. 위에 보임
     }
 
     private void setupToolBarMenu() {
@@ -119,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.menu_user_logout:
+                if(fa != null) {
+                    Log.e("HERELOGERR" , fa.getClass().toString());
+                    ((HasPV) fa).threadStop();
+                }
                 Intent i3 = new Intent(this, LoginActivity.class);
                 startActivity(i3);
                 finish();
@@ -131,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.menu_user_unregister:
+                if(fa != null)
+                    ((HasPV) fa).threadStop();
                 new DeleteFunc(this, user.getId());
                 Intent i5 = new Intent(this, LoginActivity.class);
                 startActivity(i5);
@@ -169,7 +162,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
 
         if (user.isHasPV()) {
-            adapter.addFragment(new HasPV());
+            fa = new HasPV(user);
+            adapter.addFragment(fa);
         } else {
             adapter.addFragment(new DontHasPV());
         }
@@ -190,67 +184,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-//    public void getLocationPermission() {
-//        // 권한 요청을 해야되는 버전에서만 실행
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            // checkSelfPermission returns PackageManager.PERMISSION_GRANTED or PackageManager.PERMISSION_DENIED
-//            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) // low battery, approximate location
-//                    != PackageManager.PERMISSION_GRANTED
-//                    ||checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) // gps + nework, precise location
-//                    != PackageManager.PERMISSION_GRANTED) {
-//                if (ActivityCompat.shouldShowRequestPermissionRationale(
-//                        this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-//                    ActivityCompat.requestPermissions(this, new String[]
-//                            {Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-//                } else {
-//                    // Log.e("LocaPermission", "getLocationPermission already set");
-//                }
-//            }
-//        }
-//    }
-//
-//    private void showSettingsAlert() {
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-//
-//        // Setting Dialog Title
-//        alertDialog.setTitle("GPS 설정");
-//        // Setting Dialog Message
-//        alertDialog.setMessage("GPS를 켜주세요.");
-//
-//        // On pressing Settings button
-//        alertDialog.setPositiveButton("설정", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                getApplicationContext().startActivity(intent);
-//            }
-//        });
-//        // on pressing cancel button
-//        alertDialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//            }
-//        });
-//
-//        // Showing Alert Message
-//        alertDialog.show();
-//    }
-
-//    Callback callback = new Callback() {
-//
-//        @Override
-//        public void callback() {
-//            getLocationPermission();
-//        }
-//    };
 }
-
-//class PermissionChecking {
-//    private mCallback mmCallback;
-//interface mCallback {
-//    void callback1();
-//}
-//
-//public void setMmCallback (mCallback mmCallback) {
-//    this.mmCallback = mmCallback;
-//}
-//}
