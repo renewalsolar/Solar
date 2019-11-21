@@ -1,8 +1,7 @@
 package com.example.solar.network;
 
 public class Config {
-    public final static String MAIN_URL = "http://192.168.210.29:3001/";
-
+    public final static String MAIN_URL = "http://192.168.0.2:3001/";
     public final static String POST_REGISTER = "api/person/register/";
     public final static String POST_LOGIN = "api/person/login/";
     public final static String POST_PERSON_EDIT = "api/person/edit/"; //+person_id

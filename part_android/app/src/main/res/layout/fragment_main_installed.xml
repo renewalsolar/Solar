@@ -171,6 +171,25 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
+
+                        <EditText
+                            android:id="@+id/purchase_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:hint="구매가입력"
+                            android:textColor="@color/colorDefault"
+                            android:textSize="30sp"
+                            card_view:fontFamily="@font/jalnan" />
+
+                        <Button
+                            android:id="@+id/btn_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="완료"
+                            android:textSize="20sp" />
+
                         <TextView
                             android:id="@+id/won"
                             android:layout_width="wrap_content"
@@ -206,9 +225,20 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
-                            android:text="\n나무 112그루 심는 효과"
+                            android:text="최근 30일간 발전량 "
                             android:textColor="@color/black"
                             android:textSize="15sp"
+                            card_view:fontFamily="@font/jalnan" />
+
+                        <TextView
+                            android:id="@+id/maked_charge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:text="00원"
+                            android:textColor="@color/colorDefault"
+                            android:textSize="30sp"
                             card_view:fontFamily="@font/jalnan" />
                     </LinearLayout>
                 </LinearLayout>
