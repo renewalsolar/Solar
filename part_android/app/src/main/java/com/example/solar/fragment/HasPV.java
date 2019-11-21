@@ -2,6 +2,7 @@ package com.example.solar.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.solar.Models.UserInfo;
 import com.example.solar.R;
-import com.example.solar.store.PriceCache;
 import com.example.solar.subThread.PersonalGeneration;
 import com.example.solar.subThread.PowerGraph;
 import com.example.solar.map.MapActivity;
@@ -28,16 +28,16 @@ public class HasPV extends Fragment {
     private EditText purchase_price;
     private TextView tv_generator;
     private TextView won;
+    private TextView maked_charge;
 
     private PersonalGeneration personalGeneration;
     private PowerGraph powerGraph;
 
     private UserInfo user;
-    private PriceCache pCache;
 
     private int purchasePrice;
 
-    public HasPV(UserInfo user){
+    public HasPV(UserInfo user) {
         this.user = user;
     }
 
@@ -46,17 +46,18 @@ public class HasPV extends Fragment {
         View v = inflater.inflate(R.layout.fragment_main_installed, container, false);
 
         tv_generator = v.findViewById(R.id.realtime_elec);
-        lineChart = (LineChart)v.findViewById(R.id.linechart);
+        lineChart = (LineChart) v.findViewById(R.id.linechart);
 
-        btn_map = (Button)v.findViewById(R.id.btn_map);
+        btn_map = (Button) v.findViewById(R.id.btn_map);
         btn_price = (Button) v.findViewById(R.id.btn_price);
         purchase_price = (EditText) v.findViewById(R.id.purchase_price);
-        won = (TextView)v.findViewById(R.id.won);
+        won = (TextView) v.findViewById(R.id.won);
+        maked_charge = (TextView) v.findViewById(R.id.maked_charge);
 
         personalGeneration = new PersonalGeneration(getContext(), tv_generator, user);
-        powerGraph = new PowerGraph(getContext(), lineChart, won, user);
+        powerGraph = new PowerGraph(getContext(), lineChart, won, user, maked_charge);
 
-        loadCache();
+        won.setVisibility(View.GONE);
 
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,41 +77,17 @@ public class HasPV extends Fragment {
         return v;
     }
 
-    public void threadStop (){
+    public void threadStop() {
         personalGeneration.threadStop();
     }
 
-    public void loadCache() {
-        pCache = new PriceCache(getContext());
-        try {
-            purchasePrice = Integer.parseInt(pCache.read());
-        } catch (Exception e) {
-            purchasePrice = 0;
-        }
-        if (purchasePrice != 0) {
-            purchase_price.setVisibility(View.GONE);
-            btn_price.setVisibility(View.GONE);
-            showMonth();
-        } else
-            won.setVisibility(View.GONE);
-    }
-
     public void showMonth() {
-        // 캐시가 없고 구매가를 입력하지 않으면
-        if (purchasePrice == 0 && purchase_price.getText().toString().equals("")) {
+        // 구매가를 입력하지 않으면
+        if (purchase_price.getText().toString().equals(""))
             Toast.makeText(getContext(), "구매가를 입력해주세요", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            if (purchasePrice == 0) { // 구매가 입력 시
+        else // 구매가 입력 시
                 powerGraph.sendMsg3(
                         Integer.parseInt(purchase_price.getText().toString()));
-            } else { // 캐시로 저장되었을 때
-                // 원금으로 상환달수 계산하는 과정에서 list가 받아와지지 않아,
-                // 값이 계산되지 않는다
-                // 미구현.
-//                powerGraph.sendMsg3(purchasePrice);
-            }
-        }
 
         purchase_price.setVisibility(View.GONE);
         btn_price.setVisibility(View.GONE);

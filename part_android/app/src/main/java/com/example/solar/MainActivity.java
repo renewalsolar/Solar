@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.solar.Models.UserInfo;
-import com.example.solar.SubThread.PersonalGeneration;
 import com.example.solar.fragment.DontHasPV;
 import com.example.solar.fragment.HasPV;
 import com.example.solar.pannelManage.PersonnalActivity;

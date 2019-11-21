@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.StrictMode;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.example.solar.Models.UserInfo;
 import com.example.solar.network.Config;
 import com.example.solar.network.NetworkUtility;
-import com.example.solar.store.PriceCache;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class PowerGraph {
     private Context context;
     private LineChart lineChart;
     private TextView won;
+    private TextView maked_charge;
 
     private NetworkUtility networkUtility;
 
@@ -39,15 +41,16 @@ public class PowerGraph {
     private List<ArrayList<String>> lists;
     private LineData lineData;
 
-    private PriceCache pCache;
     private float sumOfDays = 0;
     private int purchasePrice, dayCnt = 0;
 
-    public PowerGraph(final Context context, final LineChart lineChart, final TextView won, UserInfo user) {
+    public PowerGraph(final Context context, final LineChart lineChart, final TextView won,
+                      UserInfo user, final TextView maked_charge) {
         this.context = context;
         this.lineChart = lineChart;
         this.user = user;
         this.won = won;
+        this.maked_charge = maked_charge;
 
         networkUtility = new NetworkUtility(context);
         lists = new ArrayList<ArrayList<String>>();
@@ -105,7 +108,7 @@ public class PowerGraph {
 
                 ArrayList<String> data = new ArrayList<>();
 
-                for(int j =0; j < jsonArray.length();j++){
+                for (int j = 0; j < jsonArray.length(); j++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(j);
                     //{"output":"3333"}
                     data.add(jsonObject.getString("output")); // 값
@@ -127,7 +130,6 @@ public class PowerGraph {
 
     public void sendMsg3(int purPrsVar) {
         this.purchasePrice = purPrsVar;
-        pCache = new PriceCache(context);
 
         mHandler.post(new Runnable() {
             @Override
@@ -137,6 +139,24 @@ public class PowerGraph {
         });
     }
 
+    public int calcRate(double kWh) {
+        float multiVal;
+        if (kWh <= 100) {
+            multiVal = 60.7f;
+        } else if (kWh > 100 && kWh <= 200) {
+            multiVal = 125.9f;
+        } else if (kWh > 200 && kWh <= 300) {
+            multiVal = 187.9f;
+        } else if (kWh > 300 && kWh <= 400) {
+            multiVal = 280.6f;
+        } else if (kWh > 400 && kWh <= 500) {
+            multiVal = 417.7f;
+        } else { // kWh > 500
+            multiVal = 709.5f;
+        }
+        return (int) Math.round(kWh * multiVal);
+    }
+
     public Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -144,14 +164,14 @@ public class PowerGraph {
                 lineChart.invalidate();
                 lineChart.clear();
 
-                for(int i =0; i < lists.size(); i++){
+                for (int i = 0; i < lists.size(); i++) {
                     ArrayList<Entry> values = new ArrayList<>();
                     ArrayList<String> data = lists.get(i);
 
-                    for(int j = 0; j < data.size(); j++){
+                    for (int j = 0; j < data.size(); j++) {
                         sumOfDays += Float.parseFloat(data.get(j));
                         dayCnt++;
-                        values.add(new Entry(j, Math.round(Float.parseFloat(data.get(j))) ));
+                        values.add(new Entry(j, Math.round(Float.parseFloat(data.get(j)))));
                     }
 
                     LineDataSet lineDataSet = new LineDataSet(values, "panel of " + i);
@@ -160,12 +180,18 @@ public class PowerGraph {
                     lineData.setValueTextSize(9);
                     lineChart.setData(lineData);
                 }
+
+                maked_charge.setText(String.valueOf(new DecimalFormat("#,###").format(
+                                calcRate(sumOfDays / 3600 * 93.3)) + "원"));
             } else if (msg.what == 3) {
                 // 상환일 = 원금 / 월 발전량
                 int repayMonths = Math.round(purchasePrice / (sumOfDays / (float) dayCnt * 30));
+//                Log.e("purchasePrice", String.valueOf(purchasePrice));
+//                Log.e("sumOfDays", String.valueOf(sumOfDays));
+//                Log.e("dayCnt", String.valueOf(dayCnt));
+//                Log.e("repayMonths", String.valueOf(repayMonths));
                 // layout update
                 won.setText(String.valueOf(repayMonths) + " 달");
-                pCache.write(String.valueOf(purchasePrice));
             }
         }
     };
