@@ -85,9 +85,17 @@ public class HasPV extends Fragment {
         // 구매가를 입력하지 않으면
         if (purchase_price.getText().toString().equals(""))
             Toast.makeText(getContext(), "구매가를 입력해주세요", Toast.LENGTH_SHORT).show();
-        else // 구매가 입력 시
+        else { // 구매가 입력 시
+            try {
                 powerGraph.sendMsg3(
                         Integer.parseInt(purchase_price.getText().toString()));
+            } catch (Exception e) {
+                purchase_price.setText(null);
+                Toast.makeText(getContext(),
+                        "허용치를 초과하였습니다\n다시 입력하세요", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
 
         purchase_price.setVisibility(View.GONE);
         btn_price.setVisibility(View.GONE);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.solar.map.MapActivity;
 import com.example.solar.subThread.PredictGeneration;
 import com.example.solar.R;
 import com.example.solar.UnityPlayerActivity;
@@ -30,6 +31,7 @@ public class DontHasPV extends Fragment {
     TextView curpos;
     TextView predictbenefit;
     ImageView loading_view;
+    Button btn_map;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class DontHasPV extends Fragment {
         loading_view = (ImageView) v.findViewById(R.id.loading_view);
         curpos = (TextView) v.findViewById(R.id.curpos);
         predictbenefit = (TextView) v.findViewById(R.id.predictbenefit);
+        btn_map = (Button) v.findViewById(R.id.btn_map);
 
         Glide.with(this).load(R.drawable.loading).into(loading_view);
         new PredictGeneration(v.getContext(), curpos, predictbenefit, loading_view);
@@ -67,6 +70,14 @@ public class DontHasPV extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), PanelParsingActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), MapActivity.class);
                 startActivity(intent);
             }
         });
