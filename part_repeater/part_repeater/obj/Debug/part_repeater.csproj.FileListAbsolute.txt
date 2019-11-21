@@ -13,3 +13,16 @@ C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.
 C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.csproj.GenerateResource.cache
 C:\Users\vustk\source\repos\part_repeater\part_repeater\obj\Debug\part_repeater.csprojAssemblyReference.cache
 C:\Users\vustk\source\repos\part_repeater\part_repeater\bin\Debug\log4net.dll
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\bin\Debug\part_repeater.exe.config
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\bin\Debug\part_repeater.exe
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\bin\Debug\part_repeater.pdb
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\bin\Debug\System.IO.Ports.dll
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\bin\Debug\log4net.dll
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\bin\Debug\System.IO.Ports.xml
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\obj\Debug\part_repeater.csprojAssemblyReference.cache
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\obj\Debug\part_repeater.Form1.resources
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\obj\Debug\part_repeater.csproj.GenerateResource.cache
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\obj\Debug\part_repeater.csproj.CoreCompileInputs.cache
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\obj\Debug\part_repeater.csproj.CopyComplete
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\obj\Debug\part_repeater.exe
+C:\Users\JungJaeUk\Desktop\newSolar\part_repeater\part_repeater\obj\Debug\part_repeater.pdb

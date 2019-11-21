@@ -28,6 +28,7 @@ import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
@@ -55,7 +56,6 @@ public class MapActivity extends AppCompatActivity {
     private List<String> addresses;
     private List<String> outputs;
     private List<String> maxOutputs;
-
 
     double latitude = 0;
     double longitude = 0;
@@ -105,14 +105,25 @@ public class MapActivity extends AppCompatActivity {
 
     private void setupMapView(Bundle savedInstanceState) {
         mapView = findViewById(R.id.mapView);
+        MapboxMapOptions options = new MapboxMapOptions()
+                .camera(new CameraPosition.Builder()
+                        .target(new LatLng(35.95, 128))
+                        .zoom(6.5)
+                        .build());
 
+        mapView = new MapView(this, options);
         mapView.onCreate(savedInstanceState);
+
         mapView.getMapAsync(new OnMapReadyCallback() {
+
             @Override
             public void onMapReady(@NonNull final MapboxMap mapboxMap) {
+
                 mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
+
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
+
                         for(int i = 0; i<addresses.size(); i++)
                         {
                             convertToXY(addresses.get(i));
@@ -144,7 +155,7 @@ public class MapActivity extends AppCompatActivity {
                 });
             }
         });
-
+        setContentView(mapView);
     }
 
 
