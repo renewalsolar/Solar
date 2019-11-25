@@ -101,10 +101,8 @@ public class PersonalGeneration {
             for (int i = 0; i < response.length(); i++) {
                 jresponse = response.getJSONObject(i);
                 float tval = Float.parseFloat( jresponse.getJSONArray("dayOutput").getJSONObject(0).getString("output"));
-                tval = Math.round(tval * 100) / 100.0000f;
-                Log.e("ERRRRRRR", String.valueOf(tval));
-
-                value += tval + "Wh\n";
+                tval /=1000;
+                value += String.format("%.4f",tval) + "KWh\n";
             }
 
         } catch (JSONException e) {

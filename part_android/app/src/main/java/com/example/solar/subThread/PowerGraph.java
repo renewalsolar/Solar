@@ -101,16 +101,13 @@ public class PowerGraph {
 
             for (int i = 0; i < response.length(); i++) {
                 jresponse = response.getJSONObject(i); //판넬 별
-                // {"dayOutput":[{"output":"3333"}],"address":"서울 강남구 압구정로 102 형지제2빌딩"}
 
                 JSONArray jsonArray = jresponse.getJSONArray("dayOutput");
-                //[{"output":"3333"},{"output":"3333"},{"output":"3333"},{"output":"3333"}]
 
                 ArrayList<String> data = new ArrayList<>();
 
                 for (int j = 0; j < jsonArray.length(); j++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(j);
-                    //{"output":"3333"}
                     data.add(jsonObject.getString("output")); // 값
                 }
                 lists.add(data);
@@ -186,10 +183,6 @@ public class PowerGraph {
             } else if (msg.what == 3) {
                 // 상환일 = 원금 / 월 발전량
                 int repayMonths = Math.round(purchasePrice / (sumOfDays / (float) dayCnt * 30));
-//                Log.e("purchasePrice", String.valueOf(purchasePrice));
-//                Log.e("sumOfDays", String.valueOf(sumOfDays));
-//                Log.e("dayCnt", String.valueOf(dayCnt));
-//                Log.e("repayMonths", String.valueOf(repayMonths));
                 // layout update
                 won.setText(String.valueOf(repayMonths) + " 달");
             }
