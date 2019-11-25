@@ -9,7 +9,7 @@ module.exports = function () {
     app.post('/edit/:pannel_id',PannelController.EditPannel); // 판넬 정보 수정
 
     app.get('/info/:auth_id',PannelController.infoPannel); // 개인 판넬 정보(개인 판넬 위치, 판넬 id, 최대 출력량)
-    app.get('/personal_info/:auth_id',PannelController.PersonalPannel); // 개인 판넬 정보(개인 판넬 위치, 판넬 id, 최대 출력량)
+    app.get('/personal_info/:auth_id',PannelController.PersonalPannel); // 개인별 일일 발전량
     app.get('/personal_graph/:auth_id',PannelController.PersonalGraph);
 
     app.get('/info',PannelController.allInfoPannel); // 전체 판넬 정보(전체 판넬 위치, 최대 출력량)

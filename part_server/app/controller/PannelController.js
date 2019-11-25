@@ -71,9 +71,9 @@ module.exports = {
 
                     value2 = req.body.output;
 
-                    // value2 /= 1000; // *sec
-                    // value2 *= 15;
                     value2 *= 1;
+                    value2 /= 100; // *sec
+                    value2 *= 15;
                     value +=  value2;
                     str = value;
 
